@@ -63,7 +63,7 @@ const createWindow = (Start_address, height, width) => {
     };
 
     //和之前package.json配置的一样
-    autoUpdater.setFeedURL();
+    // autoUpdater.setFeedURL();
 
     //更新错误
     autoUpdater.on('error', function (error) {
