@@ -39,11 +39,8 @@
     "publish": [
       {
         "provider": "github",
-        "private": true,
-        "vPrefixedTagName": true,
         "owner": "jarvis0919",
         "repo": "SharkWallet",
-        "token": "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",
         "releaseType": "release"
       }
     ],
