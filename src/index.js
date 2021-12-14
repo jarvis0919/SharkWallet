@@ -141,7 +141,7 @@ function handleUpdate() {
   autoUpdater.checkForUpdates();
 }
 function sendUpdateMessage(text) {
-  mainWindow.webContents.send('message', text)
+  BrowserWindow.fromId(1).webContents.send('message', text)
 }
 function tostart() {
   const gotTheLock = app.requestSingleInstanceLock();
