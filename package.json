@@ -1,7 +1,7 @@
 {
   "name": "SharkWallet",
   "productName": "SharkWallet",
-  "version": "1.0.3",
+  "version": "1.0.8",
   "description": "",
   "main": "src/index.js",
   "scripts": {
@@ -33,25 +33,13 @@
     },
     "publish": [
       {
-        "provider": "generic",
-        "url": "http://101.35.46.166:5555/wallet/"
+        "provider": "github",
+        "private": false,
+        "owner": "jarvis0919",
+        "repo": "SharkWallet",
+        "token": "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"
       }
     ],
-    "dmg": {
-      "contents": [
-        {
-          "x": 410,
-          "y": 150,
-          "type": "link",
-          "path": "/Applications"
-        },
-        {
-          "x": 130,
-          "y": 150,
-          "type": "file"
-        }
-      ]
-    },
     "win": {
       "icon": "./img/A.ico",
       "target": [
@@ -62,9 +50,6 @@
           ]
         }
       ]
-    },
-    "linux": {
-      "icon": "new2/icons"
     }
   },
   "keywords": [],

@@ -40,7 +40,7 @@ app.on('render-process-gone', (event, details) => {
 const createWindow = (Start_address, height, width) => {
 
   const mainWindow = new BrowserWindow({
-    icon:  path.join(__dirname, '../img/logo1.png'),
+    icon: path.join(__dirname, '../img/logo1.png'),
     width: width,
     height: height,
     frame: false,
@@ -53,7 +53,7 @@ const createWindow = (Start_address, height, width) => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
- // mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   function handleUpdate() {
     const returnData = {
       error: { status: -1, msg: '检测更新查询异常' },
@@ -63,7 +63,13 @@ const createWindow = (Start_address, height, width) => {
     };
 
     //和之前package.json配置的一样
-    autoUpdater.setFeedURL("http://101.35.46.166:5555/wallet/");
+    // autoUpdater.setFeedURL({
+    //   rovider: 'github'
+    //   , owner: 'jarvis0919'
+    //   , repo: 'SharkWallet'
+    //   , token: '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'
+    //   , private: false
+    // });
 
     //更新错误
     autoUpdater.on('error', function (error) {
