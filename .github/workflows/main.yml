@@ -16,8 +16,5 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         path: new/**  # 将 packs 目录进行上传
-    - name: release
-      uses: softprops/action-gh-release@v1
-      with:
-        path: new/**
+
 
