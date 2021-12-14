@@ -123,7 +123,7 @@ function handleUpdate() {
 
   // 更新下载进度事件
   autoUpdater.on('download-progress', function (progressObj) {
-    mainWindow.webContents.send('downloadProgress', progressObj)
+    BrowserWindow.fromId(1).webContents.send('downloadProgress', progressObj)
     console.log(progressObj);
   });
 
