@@ -54,69 +54,12 @@ const createWindow = (Start_address, height, width) => {
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
-  function handleUpdate() {
-    const returnData = {
-      error: { status: -1, msg: '检测更新查询异常' },
-      checking: { status: 0, msg: '正在检查应用程序更新' },
-      updateAva: { status: 1, msg: '检测到新版本，正在下载,请稍后' },
-      updateNotAva: { status: -1, msg: '您现在使用的版本为最新版本,无需更新!' },
-    };
 
-    //和之前package.json配置的一样
-    // autoUpdater.setFeedURL();
-
-    //更新错误
-    autoUpdater.on('error', function (error) {
-      sendUpdateMessage(returnData.error)
-    });
-
-    //检查中
-    autoUpdater.on('checking-for-update', function () {
-      sendUpdateMessage(returnData.checking)
-    });
-
-    //发现新版本
-    autoUpdater.on('update-available', function (info) {
-      sendUpdateMessage(returnData.updateAva)
-    });
-
-    //当前版本为最新版本
-    autoUpdater.on('update-not-available', function (info) {
-      setTimeout(function () {
-        sendUpdateMessage(returnData.updateNotAva)
-      }, 1000);
-    });
-
-    // 更新下载进度事件
-    autoUpdater.on('download-progress', function (progressObj) {
-      mainWindow.webContents.send('downloadProgress', progressObj)
-    });
-
-
-    autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
-      ipcMain.on('isUpdateNow', (e, arg) => {
-        //some code here to handle event
-        autoUpdater.quitAndInstall();
-      });
-      // win.webContents.send('isUpdateNow')
-    });
-
-    //执行自动更新检查
-    autoUpdater.checkForUpdates();
-  }
 
   handleUpdate();
 
   // 通过main进程发送事件给renderer进程，提示更新信息
-  function sendUpdateMessage(text) {
-    mainWindow.webContents.send('message', text)
-  }
 
-  ipcMain.on("checkForUpdate", (event, data) => {
-    console.log('执行自动更新检查!!!');
-    // event.sender.send('reply', 'hi lee my name is yuan, age is 17');
-    autoUpdater.checkForUpdates();
-  });
 
 };
 
@@ -139,6 +82,67 @@ app.on('second-instance', () => {
   }
 });
 
+
+ipcMain.on("checkForUpdate", (event, data) => {
+  console.log('执行自动更新检查!!!');
+  // event.sender.send('reply', 'hi lee my name is yuan, age is 17');
+  autoUpdater.checkForUpdates();
+});
+function handleUpdate() {
+  const returnData = {
+    error: { status: -1, msg: '检测更新查询异常' },
+    checking: { status: 0, msg: '正在检查应用程序更新' },
+    updateAva: { status: 1, msg: '检测到新版本，正在下载,请稍后' },
+    updateNotAva: { status: -1, msg: '您现在使用的版本为最新版本,无需更新!' },
+  };
+  autoUpdater.on('error', function (error) {
+    sendUpdateMessage(returnData.error)
+    console.log(returnData.error);
+  });
+
+  //检查中
+  autoUpdater.on('checking-for-update', function () {
+    sendUpdateMessage(returnData.checking)
+    console.log(returnData.checking)
+
+  });
+
+  //发现新版本
+  autoUpdater.on('update-available', function (info) {
+    sendUpdateMessage(returnData.updateAva)
+    console.log(returnData.updateAva)
+
+  });
+
+  //当前版本为最新版本
+  autoUpdater.on('update-not-available', function (info) {
+    setTimeout(function () {
+      sendUpdateMessage(returnData.updateNotAva)
+    }, 1000);
+  });
+
+  // 更新下载进度事件
+  autoUpdater.on('download-progress', function (progressObj) {
+    mainWindow.webContents.send('downloadProgress', progressObj)
+    console.log(progressObj);
+  });
+
+
+  autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
+    ipcMain.on('isUpdateNow', (e, arg) => {
+      //some code here to handle event
+      autoUpdater.quitAndInstall();
+      console.log("quitAndInstall");
+    });
+    // win.webContents.send('isUpdateNow')
+  });
+
+  //执行自动更新检查
+  autoUpdater.checkForUpdates();
+}
+function sendUpdateMessage(text) {
+  mainWindow.webContents.send('message', text)
+}
 function tostart() {
   const gotTheLock = app.requestSingleInstanceLock();
   if (!gotTheLock) {
