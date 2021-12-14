@@ -1,7 +1,7 @@
 {
   "name": "SharkWallet",
   "productName": "SharkWallet",
-  "version": "v1.0.0",
+  "version": "v1.0.1",
   "description": "",
   "main": "src/index.js",
   "repository": {
@@ -11,50 +11,12 @@
   "scripts": {
     "start": "chcp 65001 && electron-forge start",
     "build": "electron-builder build --win --publish never",
-    "deploy": "electron-builder build --win --publish always",
+    "deploy": "electron-builder build --win --publish always --config",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\"",
     "asar": false
-  },
-  "build": {
-    "productName": "SharkWallet",
-    "appId": "com.leon.SharkWallet",
-    "copyright": "from_Li",
-    "directories": {
-      "output": "new"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowElevation": true,
-      "allowToChangeInstallationDirectory": true,
-      "installerIcon": "./img/logo3.ico",
-      "uninstallerIcon": "./img/logo3.ico",
-      "installerHeaderIcon": "./img/logo3.ico",
-      "createDesktopShortcut": true,
-      "createStartMenuShortcut": true,
-      "shortcutName": "SharkWallet"
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "jarvis0919",
-        "repo": "SharkWallet",
-        "releaseType": "release"
-      }
-    ],
-    "win": {
-      "icon": "./img/A.ico",
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "ia32"
-          ]
-        }
-      ]
-    }
   },
   "keywords": [],
   "author": "92059",
