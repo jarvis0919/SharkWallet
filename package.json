@@ -18,7 +18,7 @@
     "appId": "com.leon.SharkWallet",
     "copyright": "from_Li",
     "directories": {
-      "output": "new3"
+      "output": "new"
     },
     "nsis": {
       "oneClick": false,
