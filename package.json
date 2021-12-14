@@ -6,7 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "chcp 65001 && electron-forge start",
-    "build": "electron-builder",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -31,15 +32,6 @@
       "createStartMenuShortcut": true,
       "shortcutName": "SharkWallet"
     },
-    "publish": [
-      {
-        "provider": "github",
-        "private": false,
-        "owner": "jarvis0919",
-        "repo": "SharkWallet",
-        "token": "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"
-      }
-    ],
     "win": {
       "icon": "./img/A.ico",
       "target": [
@@ -51,6 +43,10 @@
         }
       ]
     }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jarvis0919/SharkWallet.git"
   },
   "keywords": [],
   "author": "92059",
