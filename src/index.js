@@ -63,13 +63,7 @@ const createWindow = (Start_address, height, width) => {
     };
 
     //和之前package.json配置的一样
-    // autoUpdater.setFeedURL({
-    //   rovider: 'github'
-    //   , owner: 'jarvis0919'
-    //   , repo: 'SharkWallet'
-    //   , token: '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'
-    //   , private: false
-    // });
+    // autoUpdater.setFeedURL();
 
     //更新错误
     autoUpdater.on('error', function (error) {
