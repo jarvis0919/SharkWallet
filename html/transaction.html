@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>layout 管理系统大布局 - Layui</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+    <script src="../js/transaction.js" charset="utf-8"></script>
+
+</head>
+
+<body>
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header layui-bg-gray">
+            <div class="layui-col-xs12">
+                <div class="layui-col-xs11" style="-webkit-app-region: drag;font-size: 25px;">&nbsp;</div>
+                <div class="layui-col-xs1 layui-col-space10">
+                    <i class="layui-icon  layui-icon-subtraction layui-col-xs6"
+                        style="font-size: 30px; color: #ffffff;font-weight:400;text-align:center"
+                        onClick="minimizeindex()"></i>
+                    <i class="layui-icon  layui-icon-close layui-col-xs6"
+                        style="font-size: 30px; color: #ffffff;font-weight:400;text-align:center"
+                        onClick="tocloseindex()"></i>
+                </div>
+            </div>
+            <div class="layui-logo">SHARK</div>
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item"><a href="assets.html">资产</a></li>
+                <li class="layui-nav-item layui-this"><a href="transaction.html">交易</a></li>
+                <li class="layui-nav-item"><a href="dapp.html">DAPP</a></li>
+                <li class="layui-nav-item"><a href="setup.html">设置</a></li>
+
+            </ul>
+            <form class="layui-form" action="">
+                <div class="layui-form-item">
+                    <div class="layui-inline layui-assets">
+                        <div class="layui-input-inline layui-net">
+                            <select name="selectnet" id="selectnet" lay-filter="selectnet">
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-assets">
+                        <div class="layui--inline layui-account">
+                            <select name="selectaccount" id="selectaccount" lay-filter="selectaccount">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="layui-body2">
+            <div class="layui-row layui-col-xs12 layui-col-space15 assets">
+                <div class="layui-col-xs6">
+                    <div class="layui-card getbalance2">
+                        <div class="layui-card-header3">
+                            <div class="layui-col-xs12 this-token" style="padding: 10px 0px 0px 0px;top:0;left:0;">
+                                <div class="layui-panel getbalancepanel" style="">
+                                    <div style="padding: 15px"><img src="../img/ETH.png"
+                                            class="layui-nav-img layui-col-xs3 imgbalance">
+                                        <div class="layui-col-xs9">
+                                            <div class="layui-col-xs12" style="font-size: 20px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-card-body getbalance transactionrecord">
+
+                            <!-- <div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;">
+                                <div class="layui-panel getbalancepanel" style="">
+                                    <div class="layui-col-xs2" style="padding: 22px 0px 0px 15px;"> <i
+                                            class="layui-icon layui-icon-download-circle "
+                                            style="font-size: 35px; font-weight:bold;"></i>
+                                    </div>
+                                    <div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;">
+                                        <div class="layui-col-xs8">
+                                            <div class="layui-col-xs12" style="font-size: 18px;font-weight:bold;">接收
+                                            </div>
+                                            <div class="layui-col-xs12" style="font-size: 14px;text-align: center;">
+                                                <div class="layui-col-xs2" style="font-size: 13px;text-align: left;">
+                                                    来自:
+                                                </div>
+                                                <div class="layui-col-xs10 transactionaddress">
+                                                    0xc435ea0eb2cf79a70c6fe95242d077e61461ef5b
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs4" style="font-size: 15px;">
+                                            <div class="layui-col-xs6" style="text-align: right;">0.1</div>
+                                            <div class="layui-col-xs6"
+                                                style="text-align: center;font-size: 17px;font-weight:bold;">ETH
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div> -->
+
+                            <!-- <div class="layui-col-xs12" style="padding: 10px 0px 0px 0px;">
+                                <div class="layui-panel" style="height: 80px;">
+                                    <div style="padding: 20px">
+                                        <img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance">
+                                        <div class="layui-col-xs9">
+                                            <div class="layui-col-xs12" style="font-size: 20px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-xs6">
+                    <div class="layui-panel getfenxi">
+                        <div style="padding: 20px;">
+                            <div id="sendbalance" style="display: block;">
+                                <div class="layui-col-xs12" style="text-align: center;font-size: 20px;">
+                                    转账</div>
+                                <form class="layui-form" action="">
+                                    <div class="layui-form-item">
+                                        <div class="">
+                                            <input type="text" name="HandoverCompany" id="HandoverCompany"
+                                                class="layui-input" style="position:absolute;z-index:2;width:80%;"
+                                                lay-verify="required" value="" onkeyup="search()" autocomplete="off"
+                                                placeholder=" 输入地址，或者已有账户名">
+                                            <select type="text" name="city" id="hc_select" lay-filter="hc_select"
+                                                lay-verify="required" class="layui-select" lay-search>
+                                            </select>
+                                            <!-- <select type="text" id="hc_select" lay-filter="hc_select" autocomplete="off"
+                                                placeholder="移交单位全称" lay-verify="required" class="layui-select"
+                                                lay-search>
+                                                <option value="">null</option>
+                                                <option value="010">layer</option>
+                                                <option value="021">form</option>
+                                                <option value="0571" selected>layim</option>
+                                            </select> -->
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">转账金额 (ETH)</label>
+                                            <div class="layui-input-inline">
+                                                <input type="number" name="sendvalue" lay-verify="sendvalue"
+                                                    autocomplete="off" class="layui-input" value="0" id="sendvalue"
+                                                    onkeyup="sendvalueon()">
+                                            </div>
+                                        </div>
+                                        <!-- <div class="layui-inline">
+                                            <label class="layui-form-label">燃料价格</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="" lay-verify="" autocomplete="off"
+                                                    class="layui-input" value="1" id="gasPrice">
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline">
+                                            <label class="layui-form-label">燃料限制</label>
+                                            <div class="layui-input-inline">
+                                                <input type="text" name="" lay-verify="" autocomplete="off"
+                                                    class="layui-input" value="21000" id="gasLimit">
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                    <div class="layui-form-item" style="display: none;">
+                                        <div class="layui-col-xs12">
+                                            <div class="layui-col-xs4">交易已挂起</div>
+                                            <div class="layui-col-xs8" id="transactionhash"></div>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                        <div class=" layui-col-xs6" style=" margin: 0;">
+                                            <button type="button" id="sendhaobuhao"
+                                                class="layui-btn layui-btn-fluid layui-btn-radius truesend layui-btn-disabled"
+                                                onclick=""
+                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">发送</button>
+                                        </div>
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                    </div>
+
+                                    <!-- <div class="layui-form-item">
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                        <div class=" layui-col-xs6" style=" margin: 0;">
+                                            <button type="button" class="layui-btn layui-btn-fluid layui-btn-radius"
+                                                onclick="getpirce()"
+                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">发送</button>
+                                        </div>
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                    </div> -->
+                                </form>
+
+
+                            </div>
+                            <div id="sendok" style="display: none;">
+                                <form class="layui-form" action="">
+
+                                    <div id="from"></div>
+                                    <div id="to"></div>
+                                    <!-- <div id="sendingETH"></div> -->
+                                    <!-- <div id="gasfee"></div>
+                                    <div id="allETH"></div> -->
+
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">SENDINGETH (ETH)</label>
+                                        <div class="layui-input-inline">
+                                            <input type="text" name="" lay-verify="" autocomplete="off"
+                                                class="layui-input" id="sendingETH" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item layui-col-xs12" id="selectgas">
+                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                id="Low" name="aaa" value="" title="低" id="aaa" lay-filter="aaa">
+                                        </div>
+                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                id="Medium" name="aaa" value="" title="中" id="aaa" lay-filter="aaa"
+                                                checked>
+                                        </div>
+                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                id="High" name="aaa" value="" title="高" id="aaa" lay-filter="aaa">
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">Maxfee (GWEI)</label>
+                                        <div class="layui-input-inline">
+                                            <input type="number" name="" lay-verify="" autocomplete="off"
+                                                class="layui-input" id="Maxfee" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="layui-inline layui-col-xs12">
+                                        <label class="layui-form-label">GAS limit</label>
+                                        <div class="layui-input-inline">
+                                            <input type="number" name="" value="21000" lay-verify="" autocomplete="off"
+                                                class="layui-input" id="sendGaslimit">
+                                        </div>
+                                    </div>
+                                    <div class="layui-col-xs12">
+                                        <div class="layui-col-xs4">总额为:</div>
+                                        <div class="layui-col-xs8" id="sumeth"></div>
+                                    </div>
+                                    <div class="layui-col-xs12">
+                                        <div class="layui-col-xs4">gasPrice刷新于:</div>
+                                        <div class="layui-col-xs8" id="gasdate"></div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                        <div class=" layui-col-xs6" style=" margin: 0;">
+                                            <button type="button"
+                                                class="layui-btn layui-btn-fluid layui-btn-radius truesendyesyes"
+                                                onclick=""
+                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">确认并发送</button>
+                                        </div>
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                        <div class=" layui-col-xs6" style=" margin: 0;">
+                                            <button type="button"
+                                                class="layui-btn layui-btn-fluid layui-btn-radius cancel" onclick=""
+                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">取消</button>
+                                        </div>
+                                        <div class="layui-col-xs3">&nbsp;</div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div class="transactiondetails" style="display: none;">
+                                <div class="layui-col-xs12" style="font-size: 16px;color: #5d5d5d;">
+                                    <div class="layui-col-xs12 transactiontitle" style="padding:10px 20px 0px 20px;">
+                                        交易hash
+                                    </div>
+                                    <div class="layui-col-xs12 transactionhashdetails"
+                                        style="padding: 5px 20px 0px 20px;">
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12" style="font-size: 16px;color: #5d5d5d;">
+                                    <div class="layui-col-xs12 transactiontitle" style="padding:10px 20px 0px 20px;">详情
+                                    </div>
+                                    <div class="layui-col-xs12 transactionaddresss">
+                                        <div class="transactionfrom layui-col-xs5" id="transactionfrom">
+                                        </div>
+                                        <div class="layui-col-xs2 transactionfromto"><i
+                                                class="layui-icon layui-icon-next"></i></div>
+                                        <div class="transactionto layui-col-xs5">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12 transactioncontent" style="">
+                                    <div class="layui-col-xs12 transactiontitle">交易明细</div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">状态</div>
+                                        <div class="transactionstatetype layui-col-xs6">已确认</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">Nonce</div>
+                                        <div class="layui-col-xs6 transactionnonce">0</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">数额</div>
+                                        <div class="layui-col-xs6 transactionvalue1">0</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">燃料限制</div>
+                                        <div class="layui-col-xs6 transactiongaslimit">0</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">燃料价格</div>
+                                        <div class="layui-col-xs6 transactiongasprice">0</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <div class="layui-col-xs6">总额</div>
+                                        <div class="layui-col-xs6 transactionsum">0</div>
+                                    </div>
+                                </div>
+                                <div class="layui-col-xs12 transactionlog" style="">
+                                    <div class="layui-col-xs12 transactiontitle">交易日志</div>
+                                    <div class="layui-col-xs12   transactionitem">
+                                        <i class="layui-icon layui-col-xs1 layui-icon-upload"></i>
+                                        <div class="layui-col-xs5">交易挂起</div>
+                                        <div class="layui-col-xs6 transactionstart">0</div>
+                                    </div>
+                                    <div class="layui-col-xs12 transactionitem">
+                                        <i class="layui-icon layui-col-xs1 layui-icon-ok-circle"></i>
+                                        <div class="layui-col-xs5">交易确认</div>
+                                        <div class="layui-col-xs6 transactionstop">0</div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="layui-col-xs12" id="choicetoken"
+                                style="display: none;text-align: center;font-size: 20px;">选择代币</div>
+                            <a class="layui-card-body2 getbalance " id="tokenlist1" style="display: none;">
+                                <div class="getbalance1 Listtoken"></div>
+                                <!-- <div class="layui-col-xs12" style="padding: 10px 0px 0px 0px;">
+                                    <div class="layui-panel" style="height: 80px;">
+                                        <div style="padding: 20px">
+                                            <img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance">
+                                            <div class="layui-col-xs9">
+                                                <div class="layui-col-xs12" style="font-size: 20px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-footer ">
+            <div class="layui-col-xs3">当前操作账户为</div>
+            <h3 id="address" class="layui-col-xs9"></h3>
+            <p id="nowtoken" style="display: none;">ETH</p>
+            <p id="nowtokenaddress" style="display: none;"></p>
+            <p id="nowtokenCompany" style="display: none;"></p>
+            <p id="nowtokenaccuracy" style="display: none;"></p>
+        </div>
+    </div>
+    <script src="./layui/layui.js"></script>
+    <script>
+        //JS 
+        layui.use(['element', 'layer', 'util', 'form'], function () {
+            var element = layui.element
+                , layer = layui.layer
+                , util = layui.util
+                , form = layui.form
+                , $ = layui.$;
+            let { ipcRenderer } = require('electron');
+            const clipboard = require('electron').clipboard
+            const userhome = require('userhome');
+            const USE_HOME = userhome('AppData', 'Local', 'SharkWallet', 'Accountfile', 'json');
+            const accountpath = userhome(USE_HOME, 'account.json');
+            const netpath = userhome(USE_HOME, 'net.json');
+            const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
+            const transactionpath = userhome(USE_HOME, 'transaction.json');
+            var symbol_this;
+            var sendonclick = false;
+            var tokenonclick = true;
+            var numtoken = 0;
+            var valuetoken = 0;
+            var ref;
+            var showtransactionl;
+
+            ipcRenderer.on("balance", (event, symbol, balance) => {
+                console.log(symbol, balance);
+                // $(".selecttoken1").attr("disabled","disabled");
+                // $(".getbalance").empty();
+                var p;
+                if (balance == "查询失败") {
+                    $("." + symbol + "").html("查询失败");
+                    layer.msg('请检查节点是否连接正常或者网络是否通畅');
+                    valuetoken = valuetoken + 1;
+                } else {
+                    $("." + symbol + "").html(balance);
+                    valuetoken = valuetoken + 1;
+                }
+                console.log("valuetoken" + valuetoken)
+                if (valuetoken == numtoken) {
+                    tokenonclick = true;
+                    console.log("ok");
+                    transactionlist();
+                }
+            })
+            ipcRenderer.on("balancestart", () => {
+                console.log("start");
+                valuetoken = 0;
+                tokenonclick = false;
+                $(".transactionrecord").empty();
+                // document.getElementById('selecttoken1').onclick = null;
+            })
+            ipcRenderer.on("GasPrice", (event, Low, Medium, High) => {
+                console.log("Low" + Low);
+                console.log("Medium" + Medium);
+                console.log("High" + High);
+                document.getElementById("Low").value = Low;
+                document.getElementById("Medium").value = Medium;
+                document.getElementById("High").value = High;
+                $("#Maxfee").val($('#selectgas input:checked').val());
+                $("#gasdate").text(Date());
+                var sumeth = ($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9 + Number($("#sendingETH").val());
+                $("#sumeth").text(sumeth);
+            })
+            ipcRenderer.on("transactionopen", (event, str, state) => {
+                console.log(str);
+                console.log(state);
+                var kk;
+                if (state == 1) {
+                    kk = "接收";
+                } else if (state == 0) {
+                    kk = "发送";
+                }
+                if (str.transactionstoptime == 0) {
+                    $('.transactionstatetype').html("挂起中");
+                    $('.transactionstop').html("待确定");
+                } else {
+                    $('.transactionstatetype').html("已完成");
+                    $('.transactionstop').html(getLocalTime(str.transactionstoptime.toString()));
+                }
+                $('.transactionhashdetails').html(str.hash);
+                $('.transactionfrom').html(str.from);
+                $('.transactionto').html(str.to)
+                $('.transactionnonce').html(str.nonce);
+                $('.transactionvalue1').html((str.value / Math.pow(10, Number($("#nowtokenaccuracy").html()))) + $("#nowtoken").html());
+                $('.transactiongaslimit').html(str.gas);
+                $('.transactiongasprice').html(str.gasPrice + "wei")
+
+                $('.transactionstart').html(getLocalTime(str.transactionstarttime.toString()));
+                if ($("#nowtoken").html() == "ETH") {
+                    $('.transactionsum').html((str.value / Math.pow(10, Number($("#nowtokenaccuracy").html()))) + str.gas * (str.gasPrice / Math.pow(10, Number($("#nowtokenaccuracy").html()))));
+                }
+
+                showtransaction = layer.open({
+                    type: 1
+                    , title: kk
+                    , content: $('.transactiondetails')
+                    , area: ['350px', '500px']
+                    , offset: 'auto' //右上角
+                    , anim: 5
+                    //, shade:
+                    , resize: false
+                    , cancel: function (index, layero) {
+                        // exportaddress addresscopyval
+                        $('.transactionhashdetails').html(null);
+                        $('.transactionfrom').html(null);
+                        $('.transactionto').html(null)
+                        $('.transactionstatetype').html(null);
+                        $('.transactionnonce').html(null);
+                        $('.transactionvalue1').html(null);
+                        $('.transactiongaslimit').html(null);
+                        $('.transactiongasprice').html(null)
+                        $('.transactionsum').html(null);
+                        $('.transactionstart').html(null);
+                        $('.transactionstop').html(null);
+                    }
+                });
+            })
+            ipcRenderer.on("trackTransaction", (event, state, id) => {
+                console.log(state + "交易被确认了");
+                console.log(id + "交易被确认了");
+                console.log($("#itransaction" + id + ""))
+                transactionlist()
+                layer.msg("🎉ID" + id + "号交易已被确认");
+            })
+            form.on('select(selectaccount)', function (data) {
+                $(".getbalance1").empty();
+                // console.log(data.elem); //得到select原始DOM对象
+                $("#address").text(data.value);
+                var net = $('#selectnet').val();
+                // getbalance(net, data.value);
+                // console.log(data.othis); //得到美化后的DOM对象
+                console.log(data.value); //得到被选中的值
+                console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+                $("#Balanotice").text("余额刷新于：" + Date());
+                tokenlist();
+                transactionlist();
+                symbol_this = "ETH"
+
+            });
+            form.on('select(selectnet)', function (data) {
+                $(".getbalance1").empty();
+                // console.log(data.elem); //得到select原始DOM对象
+                var address = $('#selectaccount').val();
+                // getbalance(data.value, address);
+                // console.log(data.othis); //得到美化后的DOM对象
+                console.log(data.value); //得到被选中的值
+                console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+
+
+                // tokenlist();
+                tokenlist();
+                transactionlist();
+                symbol_this = "ETH"
+            });
+
+            form.on('select(hc_select)', function (data) {   //选择移交单位 赋值给input框
+                $("#HandoverCompany").val(data.value);
+                $("#hc_select").next().find("dl").css({ "display": "none" });
+                form.render();
+            });
+            form.on('radio(aaa)', function (data) {
+                console.log(data);
+                $("#Maxfee").val(data.value);
+                var sumeth = (($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9) + Number($("#sendingETH").val());;
+                $("#sumeth").text(sumeth);
+                form.render();
+            });
+            window.sendvalueon = function () {
+                var value = $("#sendvalue").val();
+                var nowtoken1 = $("#nowtoken").html();
+                var havevalue = $("." + nowtoken1 + "").html();
+                havevalue = parseFloat(havevalue)
+                value = parseFloat(value)
+                console.log((havevalue));
+                //$("." +$("#nowtoken").html()+" ").val();
+                console.log(typeof (value));
+                if (value = null) {
+                    $("#sendvalue").val(0);
+                }
+
+            }
+            window.search = function () {
+                var value = $("#HandoverCompany").val();
+                // $("#hc_select").next().find("dl").css({ "display": "block" });
+                $("#hc_select").val(value);
+                if (value != "") {
+                    form.render();
+                    $("#hc_select").next().find("dl").css({ "display": "block" });
+                    var dl = $("#hc_select").next().find("dl").children();
+                    var j = -1;
+                    for (var i = 0; i < dl.length; i++) {
+                        if (dl[i].innerHTML.indexOf(value) <= -1) {
+                            dl[i].style.display = "none";
+                            j++;
+                        }
+                        if (j == dl.length - 1) {
+                            $("#hc_select").next().find("dl").css({ "display": "none" });
+                        }
+                    }
+                    $("#sendhaobuhao").removeClass("layui-btn-disabled");
+                    // if (value.length == 42) {
+                    //     sendonclick = false;
+                    // } else {
+
+                    // }
+                    sendonclick = true;
+                    console.log("=====>")
+                } else {
+                    sendonclick = false;
+                    $("#sendhaobuhao").addClass("layui-btn-disabled");
+                    $("#hc_select").next().find("dl").css({ "display": "none" });
+                    console.log("=====>none")
+                }
+            }
+            $.ajax({
+                url: accountpath,
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                    //下面会提到这个data是什么值
+                    //使用循环遍历，给下拉列表赋值
+
+                    $.each(data.data, function (index, value) {
+                        console.log(value);
+                        $('#hc_select').append(new Option(value.id, value.address));// 下拉菜单里添加元素
+                    });
+                    var batch = $('#hc_select').val();
+                    console.log(batch);
+                    // (new Option(value.id, value.address));
+                    layui.form.render("select");//重新渲染 固定写法
+                }
+            })
+
+            $.ajax({
+                url: accountpath,
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                    //下面会提到这个data是什么值
+                    //使用循环遍历，给下拉列表赋值
+
+                    $.each(data.data, function (index, value) {
+                        console.log(value);
+                        $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
+                    });
+                    var batch = $('#selectaccount').val();
+                    $("#address").text(batch);
+                    console.log(batch);
+                    // (new Option(value.id, value.address));
+                    layui.form.render("select");//重新渲染 固定写法
+                }
+            })
+            $.ajax({
+                url: netpath,
+                dataType: 'json',
+                type: 'get',
+                success: function (data) {
+                    console.log(data);
+                    //下面会提到这个data是什么值
+                    //使用循环遍历，给下拉列表赋值
+                    $.each(data.data, function (index, value) {
+                        console.log(value);
+                        $('#selectnet').append(new Option(value.id, value.net));// 下拉菜单里添加元素
+                    });
+                    var batch = $('#selectnet').val();
+                    // $("#address").text("当前操作账户为 ：" + batch);
+                    console.log(batch);
+                    // (new Option(value.id, value.address));
+                    layui.form.render("select");//重新渲染 固定写法
+                }
+            })
+            setTimeout(() => { tokenlist(); symbol_this = "ETH" }, 500);
+            function tokenlist() {
+                $.ajax({
+                    url: tokenlistpath,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (data) {
+                        console.log(data);
+                        $(".getbalance1").empty();
+                        // $(".getbalance").empty();
+                        //下面会提到这个data是什么值
+                        //使用循环遍历，给下拉列表赋值
+                        var p;
+                        var address = $('#selectaccount').val();
+                        console.log(data[address]);
+                        var k = [];
+                        console.log(k);
+                        // setTimeout(() => { tableIn2.reload(); }, 500);
+                        console.log("nmb===>" + $("#selectnet").val())
+                        //var k = $('#selectnet').val();
+                        for (var key in data[address]) {
+                            // console.log(key);
+                            // console.log(data[address]);
+                            console.log(data[address][key].net);
+                            if (data[address][key].net == $("#selectnet").val()) {
+                                console.log("这里")
+                                k.push(data[address][key]);
+                                console.log(k);
+                            } else if (data[address][key].address == "ETH") {
+                                console.log("这里")
+                                k.push(data[address][key]);
+                                console.log(k);
+                            }
+                        }
+                        numtoken = 0;
+                        for (var key in k) {
+                            console.log("symbol" + k[key].symbol)
+                            symbol = k[key].symbol;
+                            address = k[key].address;
+                            Company = k[key].Company;
+
+                            if (symbol == symbol_this) {
+                                $("#nowtokenaddress").html(address);
+                                $("#nowtokenaccuracy").html(k[key].decimals);
+                                $("#nowtokenCompany").html(Company);
+                                $(".layui-card-header3").empty();
+                                a = '<a class="layui-col-xs12 selecttoken1" id="selecttoken1" style="padding: 10px 0px 0px 0px;top:0;left:0;"><div class="layui-panel getbalancepanel" style=""><div style="padding: 15px"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs9"><div class="layui-col-xs6" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs5" style="font-size: 18px;text-align: center;"></div><div class="layui-col-xs1" style="font-size: 15px;">' + Company + '</div><div style="display: none;">' + address + '</div></div></div></div></a>';
+                                $(".layui-card-header3").prepend(a);
+                                numtoken = numtoken + 1;
+                            } else {
+                                a = '<a class="layui-col-xs12 Listtoken" style="padding: 10px 0px 0px 0px;" onClick=\'selecttoken1("' + symbol + '")\'><div class="layui-panel getbalancepanel" style=""><div style="padding: 15px"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs9"><div class="layui-col-xs6" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs5" style="font-size: 18px;text-align: center;"></div><div class="layui-col-xs1" style="font-size: 15px;">' + Company + '</div><div style="display: none;">' + address + '</div></div></div></div></a>';
+                                $(".getbalance1").append(a);
+                                numtoken = numtoken + 1;
+                            }
+                        }
+                        console.log("nogood" + numtoken);
+                        getbalance($('#selectnet').val(), $('#selectaccount').val(), $('#selectnet').val());
+                    }
+                })
+            }
+            setTimeout(() => { transactionlist(); symbol_this = "ETH" }, 600);
+            function transactionlist() {
+                $.ajax({
+                    url: transactionlistpath,
+                    dataType: 'json',
+                    type: 'get',
+                    success: function (data) {
+                        console.log(data);
+                        $(".transactionrecord").empty();
+                        // var p;
+                        var address = $('#selectaccount').val();
+                        var net = $('#selectnet').val();
+                        var contract = $('#nowtokenaddress').html();
+                        var symbol = symbol_this;
+                        console.log(address + net + contract + symbol);
+                        // console.log(data[address]);
+                        var k = [];
+                        var ojbk = data.data;
+                        console.log(ojbk);
+                        // console.log(k);
+                        // // setTimeout(() => { tableIn2.reload(); }, 500);
+                        // console.log("nmb===>" + $("#selectnet option:selected").text())
+                        for (var key in ojbk) {
+                            console.log(key)
+                            console.log(ojbk[key].from);
+                            console.log(ojbk[key].to);
+                            console.log(address);
+                            if ((ojbk[key].from == address) || (ojbk[key].to == address)) {
+                                if (contract == "ETH" && ojbk[key].contract == "0") {
+                                    if (ojbk[key].net == net) {
+                                        k.push(ojbk[key]);
+                                    }
+                                } else if (contract == ojbk[key].contract) {
+                                    if (ojbk[key].net == net) {
+                                        k.push(ojbk[key]);
+                                    }
+                                }
+                            }
+                        }
+                        console.log(k.toString());
+                        if (k.toString() == "") {
+                            a = '<div style="text-align: center;height: 100px;padding: 100px 0px 0px 0px;font-size: 20px;"> 无交易记录</div>'
+                            $(".transactionrecord").prepend(a);
+                        } else {
+                            for (var key in k) {
+                                if (k[key].from == address) {
+                                    var a;
+                                    var sendvalue = k[key].value;
+                                    if (k[key].value == 0) {
+                                        sendvalue = 0;
+                                    } else {
+                                        console.log(k[key].value);
+                                        console.log($("#nowtokenaccuracy").val());
+                                        sendvalue = k[key].value / Math.pow(10, Number($("#nowtokenaccuracy").html()));;
+                                    }
+                                    if (k[key].transactionIndex == null) {
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div></div></div></div></div></div>';
+                                    } else {
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle txtUpsideDown" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" "><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div></div></div></div></div></div>';
+                                    }
+                                    $(".transactionrecord").prepend(a);
+                                } else if (k[key].to == address) {
+                                    if (k[key].value == 0) {
+                                        sendvalue = 0;
+                                    } else {
+                                        console.log(k[key].value);
+                                        console.log($("#nowtokenaccuracy").val());
+                                        sendvalue = k[key].value / Math.pow(10, Number($("#nowtokenaccuracy").html()));;
+                                    }
+                                    if (k[key].transactionIndex == null) {
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div></div></div></div></div></div>';
+                                    } else {
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12"><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div></div></div></div></div></div>';
+                                    }
+                                    $(".transactionrecord").prepend(a);
+                                }
+                            }
+                        }
+                    }
+                })
+            }
+            $('.layui-card-header3').on('click', function () {
+                if (tokenonclick) {
+                    selecttoken1(0);
+                } else {
+                    layer.msg('还未获取余额信息请稍后再点击');
+                }
+            });
+            $('.Listtoken').on('click', function () {
+                if ($("#nowtoken").html() == "ETH") {
+                    $("#sendGaslimit").val(21000);
+                } else {
+                    $("#sendGaslimit").val(53000);;
+                }
+                setTimeout(() => {
+                    symbol_this = document.getElementById("nowtoken").innerHTML;
+                    console.log("now" + symbol_this);
+                    tokenlist();
+
+                }, 500);
+            });
+            $('.truesend').on('click', function () {
+                if (tokenonclick && sendonclick) {
+                    if ($("#HandoverCompany").val().length == 42) {
+                        truesend();
+                        if ($("#nowtoken").html() == "ETH") {
+                            $("#sendGaslimit").val(21000);
+                        } else {
+                            $("#sendGaslimit").val(53000);;
+                        }
+                        getpirce($('#selectnet').val());
+                        setTimeout(() => { $("#Maxfee").val($('#selectgas input:checked').val()); }, 2000);
+                        ref = setInterval(function () {
+                            getpirce($('#selectnet').val());
+                        }, 5000);
+                    } else {
+                        layer.msg('地址长度为42');
+                    }
+                } else if (sendonclick && !tokenonclick) {
+                    layer.msg('还未获取余额信息请稍后再点击');
+                } else if (tokenonclick && !sendonclick) {
+                    layer.msg('请输入对象账户');
+                }
+            });
+            $('.cancel').on('click', function () {
+                cancel();
+                clearInterval(ref);
+            });
+            $('.truesendyesyes').on('click', function () {
+                //     net, address, address1, value1, token
+                console.log($('#selectnet').val());
+                console.log($('#selectaccount').val())
+                console.log($('#to').html())
+                console.log($('#nowtokenaddress').html())
+                console.log($('#sendingETH').val())
+                console.log($('#nowtoken').html())
+                // if ($('#nowtokenaddress').html() == "ETH") {
+                //     sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), $('#sendingETH').val(), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
+                // }
+                sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), $('#sendingETH').val(), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
+            });
+            ipcRenderer.on("transaction", (event, state, transaction) => {
+                console.log(transaction);
+                if (state == 0) {
+                    layer.msg('交易已挂起');
+                    cancel();
+                    clearInterval(ref);
+
+                    // document.getElementById("transaction").innerHTML = transaction + "交易成功";
+                } else {
+                    layer.msg(transaction);
+                    // document.getElementById("transaction").innerHTML = "交易失败";
+                }
+            })
+            ipcRenderer.on("writetransa", () => {
+                transactionlist()
+            })
+            var codehash = document.querySelector(".transactionhashdetails");
+            // const copyInput = document.getElementById('copy-to-input')
+            codehash.onclick = function () {
+                clipboard.writeText(document.querySelector(".transactionhashdetails").innerHTML);
+                layer.msg('复制成功');
+                // document.querySelector(".transactionfrom").innerHTML = "复制成功";
+                // setTimeout(() => { document.querySelector("#addresscopy").innerHTML = "点击这里复制"; }, 2000);
+            };
+            var codefrom = document.querySelector(".transactionfrom");
+            // const copyInput = document.getElementById('copy-to-input')
+            codefrom.onclick = function () {
+                clipboard.writeText(document.querySelector(".transactionfrom").innerHTML);
+                layer.msg('复制成功');
+                // document.querySelector(".transactionfrom").innerHTML = "复制成功";
+                // setTimeout(() => { document.querySelector("#addresscopy").innerHTML = "点击这里复制"; }, 2000);
+            };
+            var codeto = document.querySelector(".transactionto");
+            // const copyInput = document.getElementById('copy-to-input')
+            codeto.onclick = function () {
+                clipboard.writeText(document.querySelector(".transactionto").innerHTML);
+                layer.msg('复制成功');
+                // document.querySelector("#addresscopy").innerHTML = "复制成功";
+                // setTimeout(() => { document.querySelector("#addresscopy").innerHTML = "点击这里复制"; }, 2000);
+            };
+            util.event('lay-header-event', {
+                //左侧菜单事件
+                menuLeft: function (othis) {
+                    layer.msg('展开左侧菜单的操作', { icon: 0 });
+                }
+                , menuRight: function () {
+                    layer.open({
+                        type: 1
+                        , content: '<div style="padding: 15px;">处理右侧面板的操作</div>'
+                        , area: ['260px', '100%']
+                        , offset: 'rt' //右上角
+                        , anim: 5
+                        , shadeClose: true
+                    });
+                }
+            });
+
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ETH Wallet</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="../html/layui/css/layui.css" tppabs="../html/layui/css/layui.css" media="all">
+    <script src="../js/login.js" charset="utf-8"></script>
+</head>
+
+<body style="background-color: #fff;">
+
+    <div class="layui-col-xs12" style="height: 250px;background-image: linear-gradient(#1a6ffb, #7580ff);" id="body1">
+        <div class="layui-col-xs12">
+            <div class="layui-col-xs10" style="-webkit-app-region: drag;font-size: 25px;">&nbsp;</div>
+            <i class="layui-icon  layui-icon-subtraction layui-col-xs1"
+                style="font-size: 25px; color: #ffffff;font-weight:400;text-align:center" onClick="minimize()"></i>
+            <i class="layui-icon  layui-icon-close layui-col-xs1"
+                style="font-size: 25px; color: #ffffff;font-weight:400;text-align:center" onClick="toclose()"></i>
+        </div>
+        <div class="layui-col-xs12">
+            <div class="layui-col-xs3">
+                &nbsp;
+            </div>
+            <img class="layui-col-xs6 " src="../img/logo1.png" style="height:250; width:250;" draggable="false" />
+            <!-- <audio id="music" src="../music/sharkbite.mp3" loop autoplay></audio> -->
+            <div class="layui-col-xs3">
+                &nbsp;
+            </div>
+        </div>
+        <div class="layui-col-xs12">&nbsp;</div>
+        <div class="layui-col-xs5">&nbsp;</div>
+        <div class="layui-col-xs2" id="loging">&nbsp;</div>
+        <div class="layui-col-xs5">&nbsp;</div>
+    </div>
+
+    </div>
+    <div class="layui-col-xs12" id="body2">
+        <div class="layui-col-xs12" style="text-align: center;
+            color: #2672fc;
+            font-weight: 700;
+            font-size: 50px;
+            font-family: Arial Black;
+            text-shadow: 2px 2px 5px #c7d6f7;">
+            SHARK
+        </div>
+        <div class="layui-col-xs12" style="text-align: center;
+            color: #7280ff;
+            font-weight: 700;
+            font-size: 35px;
+            font-family: Arial Black;">
+            暴鲨钱包
+        </div>
+        <div class="layui-col-xs4">
+            &nbsp;
+        </div>
+        <div class="layui-col-xs12">
+            <div class="layui-col-xs12" style="text-align:center;color: #7b7b7b ;font-size: medium;" id="state">
+                请输入您的密码,解锁钱包开始您的乱鲨之旅
+            </div>
+        </div>
+        <div class="layui-col-xs12">&nbsp;</div>
+        <div class="layui-col-xs12">
+            <form name="login" class="layui-col-xs12 layui-form" id="login">
+                <div class="layui-form-item layui-col-xs12">
+                    <label class="layui-form-label layui-col-xs3">&nbsp;</label>
+                    <div class="layui-input-block layui-col-xs6">
+                        <input type="password" font-size="" name="title" required lay-verify="required" placeholder="密码"
+                            autocomplete="off" class="layui-input" id="name1" style="border-left-style:none;
+                        border-top-style:none;
+                        border-right-style:none;
+                        border-bottom-color:#4d6efb">
+                    </div>
+                    <div class="layui-form-label layui-col-xs3">&nbsp;</div>
+                </div>
+                <div class="layui-col-xs12">&nbsp;</div>
+                <div class="layui-form-item layui-col-xs12">
+                    <div class="layui-col-xs3">&nbsp;</div>
+                    <div class="layui-input-block layui-col-xs6" style=" margin: 0;">
+                        <button class="layui-btn layui-btn-fluid layui-btn-radius" lay-submit lay-filter="formDemo"
+                            style="background: #6d7eff;
+                            font-weight: 600;
+                            font-size: 18px;
+                            box-shadow: 2px 2px 2px #cfcfcf;">登入</button>
+                    </div>
+                    <div class="layui-col-xs3">&nbsp;</div>
+                </div>
+                <div class="layui-col-xs12 tab_re" style="color:#666666;text-align:center;">
+                    <div class="layui-col-xs3">&nbsp;</div>
+                    <div class="layui-col-xs6">
+                        <div class="layui-col-xs6">忘记密码?通过</div>
+                        <div class="importmnemonics layui-col-xs3" style="color:#ff771d;font-weight: bold;">助记符
+                        </div>
+                        <div class="layui-col-xs2">还原.</div>
+                    </div>
+                    <div class="layui-col-xs3">&nbsp;</div>
+                </div>
+            </form>
+            <form class="layui-col-xs12 layui-form mnemonics" id="" style="display: none;">
+                <div class="layui-form-item layui-col-xs12 tab_re">
+                    <div class="" style="padding: 10px 80px 0px 80px;">
+                        <input type="password" font-size="" name="" required lay-verify="required" placeholder="密码"
+                            autocomplete="off" class="layui-input" id="mnemonicspass1" style="border-left-style:none;
+                    border-top-style:none;
+                    border-right-style:none;
+                    border-bottom-color:#4d6efb;">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-xs12 tab_re">
+                    <div class="" style="padding: 10px 80px 0px 80px;">
+                        <input type="password" font-size="" name="" required lay-verify="required" placeholder="再输入一次密码"
+                            autocomplete="off" class="layui-input" id="mnemonicspass2" style="border-left-style:none;
+                    border-top-style:none;
+                    border-right-style:none;
+                    border-bottom-color:#4d6efb;">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-form-text layui-col-xs12 " id="" style="">
+                    <div class="" style="padding:10px 60px 0px 60px">
+                        <textarea name="desc" placeholder="输入你的助记词" class="layui-textarea"
+                            id="mnemonicsword"></textarea>
+                    </div>
+                </div>
+                <div class="layui-form-item layui-col-xs12 tab_re">
+                    <div class="" style="padding: 10px 80px 0px 80px;">
+                        <button type="button" class="layui-btn layui-btn-fluid layui-btn-radius exportmnemonics"
+                            lay-submit lay-filter="formDemo1"
+                            style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">导入</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="../html/layui/layui.js" charset="utf-8"></script>
+    <!-- 注意：如果你直接复制所有代码到本地，上述 JS 路径需要改成你本地的 -->
+    <script>
+        layui.use(['form', 'layedit', 'laydate'], function () {
+            var form = layui.form
+                , layer = layui.layer
+                , layedit = layui.layedit
+                , laydate = layui.laydate
+                , $ = layui.$;
+            const userhome = require('userhome');
+            const USE_HOME = userhome('AppData', 'Local', 'SharkWallet', 'Accountfile', 'json');
+            const accountpath = userhome(USE_HOME, 'account.json');
+            const netpath = userhome(USE_HOME, 'net.json');
+            const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
+            const transactionpath = userhome(USE_HOME, 'transaction.json');
+            const bip39path = './readjson/english.json';
+
+            form.on('submit(formDemo)', function (data) {
+                console.log(data.field.title)
+                checkPass(data.field.title);
+                // layer.msg(JSON.stringify(data.field));
+                return false;
+            });
+            var anquan;
+            $('.importmnemonics').on('click', function () {
+                //layer.close(anquan);
+                $('#mnemonicspass1').val(null);
+                $('#mnemonicspass2').val(null);
+                $('#mnemonicsword').val(null);
+                anquan = layer.open({
+                    type: 1
+                    , title: "导入助记词"
+                    , content: $('.mnemonics')//$('.shownet').style.display = "block"
+                    , area: ['350px', '500px']
+                    , offset: 'auto' //右上角
+                    , anim: 5
+                    , resize: false
+                    , cancel: function (index, layero) {
+                        $('#mnemonicspass1').val(null);
+                        $('#mnemonicspass2').val(null);
+                        $('#mnemonicsword').val(null);
+                        // $('#newpassword').val(null)
+                        // $('#password8').val(null)
+                    }
+                });
+            });
+            // const bip39path = '../Accountfile/english.json';
+ 
+
+            $('.exportmnemonics').on('click', function () {
+                console.log($('#mnemonicspass1').val() + "=====")
+                console.log($('#mnemonicspass2').val() + "=====")
+                console.log($('#mnemonicsword').val() + "=====")
+                //console.log($('#mnemonicsword').val() + "=====")
+                if ($('#mnemonicspass1').val().length < 6 || $('#mnemonicspass2').val().length > 16) {
+                    layer.msg(' 密码只能为6~16位字符！');
+                } else if ($('#mnemonicspass1').val() != $('#mnemonicspass2').val()) {
+                    layer.msg(' 密码不等！');
+                } else if (countSegments($('#mnemonicsword').val()) == 12) {
+                    console.log("通过");
+                    $.ajax({
+                        url: bip39path,
+                        dataType: 'json',
+                        type: 'get',
+                        success: function (data) {
+                            console.log(data);
+                            var mnemonicsstring = Getstringword($('#mnemonicsword').val());
+                            mnemonics = mnemonicsstring.split(" ");
+                            var equalword = 0;
+                            for (var key in mnemonics) {
+                                let char = mnemonics[key].charAt(0).toUpperCase();
+                                // console.log(key + "key" + char.charCodeAt());
+                                var headchar = char.charCodeAt() - 65;
+                                console.log(mnemonics[key] + "key" + headchar);
+                                // console.log(data[headchar]["names"]);
+                                var wordlist = data[headchar]["names"];
+                                for (var i in wordlist) {
+                                    if (mnemonics[key] == wordlist[i]) {
+                                        console.log("找到了" + mnemonics[key] + wordlist[i])
+                                        equalword = equalword + 1;
+                                    }
+                                }
+                            }
+                            console.log("被确认单词量为" + equalword);
+                            if (equalword != 12) {
+                                layer.msg('无效助记词！');
+                            } else if (equalword == 12) {
+                                layer.msg('导入成功');
+                                setTimeout(() => {
+                                    exportmnemonics($('#mnemonicspass1').val(), mnemonicsstring);
+                                }, 1000);
+
+                            }
+                        }
+                    })
+                }
+            })
+            ipcRenderer.on("mnemonicsok", () => {
+                ipcRenderer.send("createaccount", 1);
+                layer.msg('即将跳转至登入界面');
+                layer.close(anquan);
+                setTimeout(() => {
+                    a = '<div style="color: #fff;"><i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop "style="font-size: 80px;"></i></div>';
+                    document.getElementById("loging").innerHTML = a;
+                    var body1 = document.getElementById("body1"); body1.style.height = "600px";
+                    var body2 = document.getElementById("body2"); body2.style.display = "none";
+                }, 500);
+                setTimeout(() => { ipcRenderer.send("togo", '../html/assets.html'); }, 4000);
+
+                //tologin(1);
+            })
+
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>
