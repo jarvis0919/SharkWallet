@@ -171,8 +171,9 @@
                 }
             })
             checkForUpdate();
-            ipcRenderer.on("checkUpdate", (event,updateAva) => {
-                //console.log(updateAva);
+            ipcRenderer.on("checkUpdate", (event, updateAva, info) => {
+                console.log(updateAva);
+                console.log(info);
                 layer.open({
                     type: 1
                     , title: false //不显示标题栏
@@ -183,7 +184,7 @@
                     , btn: ['火速围观', '残忍拒绝']
                     , btnAlign: 'c'
                     , moveType: 1 //拖拽模式，0或者1
-                    , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">你知道吗？亲！<br>layer ≠ layui<br><br> layer 只是作为 layui 的一个弹层模块，由于其用户基数较大，所以常常会有人以为 layui 是 <del>layerui</del><br><br>layer 虽然已被 Layui 收编为内置的弹层模块，但仍然会作为一个独立组件全力维护、升级 ^_^</div>'
+                    , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">有更新可用！<br>' + updateAva + '<br>' + info + '<br></div>'
                     , success: function (layero) {
                         var btn = layero.find('.layui-layer-btn');
                         btn.find('.layui-layer-btn0').attr({
@@ -193,8 +194,8 @@
                     }
                 });
             })
-            ipcRenderer.on("message", (event,text) => {
-                console.log("==>"+text);
+            ipcRenderer.on("message", (event, text) => {
+                console.log("==>" + text);
             })
 
             form.on('select(selectaccount)', function (data) {

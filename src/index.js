@@ -99,12 +99,12 @@ ipcMain.on("checkForUpdate", (event) => {
   autoUpdater.on('update-available', function (info) {
     sendUpdateMessage(returnData.updateAva)
     console.log(returnData.updateAva);
-    event.sender.send('checkUpdate', returnData.updateAva);
+    event.sender.send('checkUpdate', returnData.updateAva, info);
   });
   //当前版本为最新版本
   autoUpdater.on('update-not-available', function (info) {
     setTimeout(function () {
-      sendUpdateMessage(returnData.updateNotAva)
+      sendUpdateMessage(returnData.updateNotAva, info)
     }, 1000);
   });
 
