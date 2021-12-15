@@ -195,7 +195,7 @@
                 });
             })
             ipcRenderer.on("message", (event, text) => {
-                console.log("==>" + text);
+                console.log(text);
             })
 
             form.on('select(selectaccount)', function (data) {
