@@ -83,7 +83,7 @@ app.on('second-instance', () => {
 
 ipcMain.on("checkForUpdate", (event) => {
   console.log('执行自动更新检查!!!');
-  autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
+  //autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
   autoUpdater.checkForUpdates();
   const returnData = {
     error: { status: -1, msg: '检测更新查询异常' },
