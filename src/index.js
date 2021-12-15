@@ -37,7 +37,6 @@ app.on('render-process-gone', (event, details) => {
 })
 
 const createWindow = (Start_address, height, width) => {
-
   const mainWindow = new BrowserWindow({
     icon: path.join(__dirname, '../img/logo1.png'),
     width: width,
@@ -55,6 +54,11 @@ const createWindow = (Start_address, height, width) => {
   mainWindow.webContents.openDevTools();
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
+  if (Start_address == "../html/assets.html") {
+    setTimeout(() => {
+      mainWindow.webContents.send('urlupdate');
+    }, 2000);
+  }
 };
 
 app.on('second-instance', () => {
@@ -79,17 +83,15 @@ app.on('second-instance', () => {
 
 ipcMain.on("checkForUpdate", (event) => {
   console.log('执行自动更新检查!!!');
+  autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
   autoUpdater.checkForUpdates();
   const returnData = {
     error: { status: -1, msg: '检测更新查询异常' },
     checking: { status: 0, msg: '正在检查应用程序更新' },
-    updateAva: { status: 1, msg: '检测到新版本，正在下载,请稍后' },
+    updateAva: { status: 1, msg: '检测到新版本,是否下载' },
     updateNotAva: { status: -1, msg: '您现在使用的版本为最新版本,无需更新!' },
   };
-  autoUpdater.on('error', function (error) {
-    sendUpdateMessage(returnData.error)
-    console.log(returnData.error);
-  });
+  autoUpdater.autoDownload = false;
   //检查中
   autoUpdater.on('checking-for-update', function () {
     sendUpdateMessage(returnData.checking)
@@ -97,6 +99,7 @@ ipcMain.on("checkForUpdate", (event) => {
   });
   //发现新版本
   autoUpdater.on('update-available', function (info) {
+    
     sendUpdateMessage(returnData.updateAva)
     console.log(returnData.updateAva);
     event.sender.send('checkUpdate', returnData.updateAva, info);
@@ -107,24 +110,27 @@ ipcMain.on("checkForUpdate", (event) => {
       sendUpdateMessage(returnData.updateNotAva, info)
     }, 1000);
   });
-
 });
-function handleUpdate() {
-  // 更新下载进度事件
+ipcMain.on('updateApp', (event) => {
+  event.reply('updateApp', "更新");
+  autoUpdater.checkForUpdates();
+  autoUpdater.autoDownload = true;
+  autoUpdater.on('error', function (error) {
+    console.log(error);
+  });
   autoUpdater.on('download-progress', function (progressObj) {
-    BrowserWindow.fromId(1).webContents.send('downloadProgress', progressObj)
+    BrowserWindow.fromId(2).webContents.send('downloadProgress', progressObj)
     console.log(progressObj);
   });
   autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
-    ipcMain.on('isUpdateNow', (e, arg) => {
-      //some code here to handle event
+    BrowserWindow.fromId(2).webContents.send('Downloadstatus',releaseNotes,releaseName, releaseDate, updateUrl, quitAndUpdate);
       autoUpdater.quitAndInstall();
       console.log("quitAndInstall");
-    });
     // win.webContents.send('isUpdateNow')
   });
-  autoUpdater.checkForUpdates();
-}
+  
+})
+
 function sendUpdateMessage(text) {
   BrowserWindow.fromId(2).webContents.send('message', text)
 }
@@ -304,10 +310,7 @@ app.on('ready', () => {
     }
   });
 });
-ipcMain.on('updateApp', (event) => {
-  // 刚刚封装的方法
-  updater(event)
-})
+
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {

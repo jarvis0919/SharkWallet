@@ -51,6 +51,9 @@
         </div>
         <!-- <div class="layui-nav-tree2"></div> -->
         <div class="layui-body2">
+            <!-- <div class="layui-progress layui-progress-big layui-col-xs2" lay-showPercent="true">
+                <div class="layui-progress-bar layui-bg-blue" lay-percent="80%"></div>
+            </div> -->
             <div class="layui-row layui-col-xs12 layui-col-space15 assets">
                 <div class="layui-col-xs6">
                     <div class="layui-card getbalance1">
@@ -126,6 +129,14 @@
                                     <div class="layui-col-xs3">&nbsp;</div>
                                 </div>
                             </form>
+                            <div class="toupdate"
+                                style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;height: 40px;">
+                                <div class="layui-col-xs12">下载进度</div>
+                                <div class="layui-progress layui-progress-big layui-col-xs12" lay-showPercent="true">
+                                    <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -170,26 +181,25 @@
                     $("." + symbol + "").html(balance)
                 }
             })
-            checkForUpdate();
+            var update;
             ipcRenderer.on("checkUpdate", (event, updateAva, info) => {
                 console.log(updateAva);
                 console.log(info);
-                layer.open({
+                update = layer.open({
                     type: 1
                     , title: false //不显示标题栏
                     , closeBtn: false
                     , area: '300px;'
                     , shade: 0.8
                     , id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    , btn: ['火速围观', '残忍拒绝']
+                    , btn: ['立即下载', '残忍拒绝']
                     , btnAlign: 'c'
                     , moveType: 1 //拖拽模式，0或者1
-                    , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">有更新可用！<br>' + updateAva + '<br>' + info + '<br></div>'
+                    , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' + updateAva.msg + '<br>' + info.path + '<br>' + info.version + '<br>' + info.releaseDate + '<br></div>'
                     , success: function (layero) {
                         var btn = layero.find('.layui-layer-btn');
-                        btn.find('.layui-layer-btn0').attr({
-                            href: '../index.htm'/*tpa=http://www.layui.com/*/
-                            , target: '_blank'
+                        btn.find('.layui-layer-btn0').on('click', function () {
+                            toupdate();
                         });
                     }
                 });
@@ -197,7 +207,36 @@
             ipcRenderer.on("message", (event, text) => {
                 console.log(text);
             })
-
+            ipcRenderer.on("Downloadstatus", (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) => {
+                console.log(releaseNotes + releaseName + releaseDate + updateUrl + quitAndUpdate);
+            })
+            ipcRenderer.on("downloadProgress", (event, releaseNotes) => {
+                console.log(releaseNotes);
+            })
+            function toupdate() {
+                //layer.close(update);
+                
+                update = layer.open({
+                    type: 1
+                    , title: false //不显示标题栏
+                    , closeBtn: false
+                    , area: ['500px', '200px']
+                    , shade: 0.8
+                    , id: 'download' //设定一个id，防止重复弹出
+                    , btn: ['取消']
+                    , btnAlign: 'c'
+                    , moveType: 1 //拖拽模式，0或者1
+                    , content: $('.toupdate')
+                    , success: function (layero) {
+                        ipcRenderer.send("updateApp");
+                        // var btn = layero.find('.layui-layer-btn');
+                        // btn.find('.layui-layer-btn0').on('click', function () {
+                        //     console.log("成功")
+                        //     toupdate();
+                        // });
+                    }
+                });
+            }
             form.on('select(selectaccount)', function (data) {
                 $("#address").text("当前操作账户为 ：" + data.value);
                 $('.getfenxiaddress').text(data.elem[data.elem.selectedIndex].text);

@@ -693,7 +693,7 @@
             setTimeout(() => { transactionlist(); symbol_this = "ETH" }, 600);
             function transactionlist() {
                 $.ajax({
-                    url: transactionlistpath,
+                    url: transactionpath,
                     dataType: 'json',
                     type: 'get',
                     success: function (data) {
