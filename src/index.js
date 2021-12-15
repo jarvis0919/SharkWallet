@@ -79,6 +79,7 @@ app.on('second-instance', () => {
     }
   }
 });
+autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
 const returnData = {
   error: { status: -1, msg: '检测更新查询异常' },
   checking: { status: 0, msg: '正在检查应用程序更新' },
