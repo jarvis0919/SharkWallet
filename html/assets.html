@@ -193,6 +193,9 @@
                     }
                 });
             })
+            ipcRenderer.on("message", (event,text) => {
+                console.log("==>"+text);
+            })
 
             form.on('select(selectaccount)', function (data) {
                 $("#address").text("当前操作账户为 ：" + data.value);
