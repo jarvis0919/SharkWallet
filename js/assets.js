@@ -19,4 +19,6 @@ ipcRenderer.on("Privatekey", (event, Privatekey) => {
     document.getElementById("getPrivatekeybox").style.display = "block"
     document.getElementById("getPrivatekey").innerHTML = Privatekey;
 })
-
+function checkForUpdate() {
+    ipcRenderer.send("checkForUpdate");
+}

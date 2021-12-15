@@ -24,8 +24,7 @@ const accountpath = userhome(USE_HOME, 'account.json');
 const netpath = userhome(USE_HOME, 'net.json');
 const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
 const transactionpath = userhome(USE_HOME, 'transaction.json');
-const erc20abi = userhome(USE_HOME, 'erc20abi.json');
-
+const erc20abi = path.join(__dirname, '../html/readjson/erc20abi.json');
 
 
 if (require('electron-squirrel-startup')) {
@@ -53,14 +52,9 @@ const createWindow = (Start_address, height, width) => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
-
-
-  handleUpdate();
-
+  mainWindow.webContents.openDevTools();
+  // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
-
-
 };
 
 app.on('second-instance', () => {
@@ -83,12 +77,9 @@ app.on('second-instance', () => {
 });
 
 
-ipcMain.on("checkForUpdate", (event, data) => {
+ipcMain.on("checkForUpdate", (event) => {
   console.log('执行自动更新检查!!!');
-  // event.sender.send('reply', 'hi lee my name is yuan, age is 17');
   autoUpdater.checkForUpdates();
-});
-function handleUpdate() {
   const returnData = {
     error: { status: -1, msg: '检测更新查询异常' },
     checking: { status: 0, msg: '正在检查应用程序更新' },
@@ -99,21 +90,17 @@ function handleUpdate() {
     sendUpdateMessage(returnData.error)
     console.log(returnData.error);
   });
-
   //检查中
   autoUpdater.on('checking-for-update', function () {
     sendUpdateMessage(returnData.checking)
     console.log(returnData.checking)
-
   });
-
   //发现新版本
   autoUpdater.on('update-available', function (info) {
     sendUpdateMessage(returnData.updateAva)
-    console.log(returnData.updateAva)
-
+    console.log(returnData.updateAva);
+    event.sender.send('checkUpdate', returnData.updateAva);
   });
-
   //当前版本为最新版本
   autoUpdater.on('update-not-available', function (info) {
     setTimeout(function () {
@@ -121,13 +108,13 @@ function handleUpdate() {
     }, 1000);
   });
 
+});
+function handleUpdate() {
   // 更新下载进度事件
   autoUpdater.on('download-progress', function (progressObj) {
     BrowserWindow.fromId(1).webContents.send('downloadProgress', progressObj)
     console.log(progressObj);
   });
-
-
   autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
     ipcMain.on('isUpdateNow', (e, arg) => {
       //some code here to handle event
@@ -136,8 +123,6 @@ function handleUpdate() {
     });
     // win.webContents.send('isUpdateNow')
   });
-
-  //执行自动更新检查
   autoUpdater.checkForUpdates();
 }
 function sendUpdateMessage(text) {
@@ -331,9 +316,8 @@ app.on('window-all-closed', () => {
 });
 
 app.on('activate', () => {
-
   if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
+    //createWindow();
   }
 });
 ipcMain.on('minimize', () => BrowserWindow.fromId(1).minimize())
@@ -809,6 +793,7 @@ ipcMain.on('togo', (event, url) => {
   } else {
     BrowserWindow.fromId(1).close();
     createWindow('../html/assets.html', 600, 900);
+    // handleUpdate();
   }
 })
 ipcMain.on('login', (event, arg) => {
