@@ -79,56 +79,53 @@ app.on('second-instance', () => {
     }
   }
 });
-
-
+const returnData = {
+  error: { status: -1, msg: '检测更新查询异常' },
+  checking: { status: 0, msg: '正在检查应用程序更新' },
+  updateAva: { status: 1, msg: '检测到新版本,是否下载' },
+  updateNotAva: { status: -1, msg: '您现在使用的版本为最新版本,无需更新!' },
+};
+autoUpdater.on('checking-for-update', function () {
+  sendUpdateMessage(returnData.checking)
+  console.log(returnData.checking)
+});
+//发现新版本
+autoUpdater.on('update-available', function (info) {
+  sendUpdateMessage(returnData.updateAva)
+  console.log(returnData.updateAva);
+  BrowserWindow.fromId(2).webContents.send('checkUpdate', returnData.updateAva, info);
+});
+//当前版本为最新版本
+autoUpdater.on('update-not-available', function (info) {
+  setTimeout(function () {
+    sendUpdateMessage(returnData.updateNotAva, info)
+  }, 1000);
+});
+autoUpdater.on('error', function (error) {
+  console.log(error);
+});
+autoUpdater.on('download-progress', function (progressObj) {
+  BrowserWindow.fromId(2).webContents.send('downloadProgress', progressObj)
+  console.log(progressObj);
+});
+autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
+  BrowserWindow.fromId(2).webContents.send('Downloadstatus', releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate);
+  autoUpdater.quitAndInstall();
+  console.log("quitAndInstall");
+  // win.webContents.send('isUpdateNow')
+});
 ipcMain.on("checkForUpdate", (event) => {
   console.log('执行自动更新检查!!!');
   //autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
-  autoUpdater.checkForUpdates();
-  const returnData = {
-    error: { status: -1, msg: '检测更新查询异常' },
-    checking: { status: 0, msg: '正在检查应用程序更新' },
-    updateAva: { status: 1, msg: '检测到新版本,是否下载' },
-    updateNotAva: { status: -1, msg: '您现在使用的版本为最新版本,无需更新!' },
-  };
   autoUpdater.autoDownload = false;
+  autoUpdater.checkForUpdates();
   //检查中
-  autoUpdater.on('checking-for-update', function () {
-    sendUpdateMessage(returnData.checking)
-    console.log(returnData.checking)
-  });
-  //发现新版本
-  autoUpdater.on('update-available', function (info) {
-    
-    sendUpdateMessage(returnData.updateAva)
-    console.log(returnData.updateAva);
-    event.sender.send('checkUpdate', returnData.updateAva, info);
-  });
-  //当前版本为最新版本
-  autoUpdater.on('update-not-available', function (info) {
-    setTimeout(function () {
-      sendUpdateMessage(returnData.updateNotAva, info)
-    }, 1000);
-  });
 });
 ipcMain.on('updateApp', (event) => {
   event.reply('updateApp', "更新");
-  autoUpdater.checkForUpdates();
   autoUpdater.autoDownload = true;
-  autoUpdater.on('error', function (error) {
-    console.log(error);
-  });
-  autoUpdater.on('download-progress', function (progressObj) {
-    BrowserWindow.fromId(2).webContents.send('downloadProgress', progressObj)
-    console.log(progressObj);
-  });
-  autoUpdater.on('update-downloaded', function (event, releaseNotes, releaseName, releaseDate, updateUrl, quitAndUpdate) {
-    BrowserWindow.fromId(2).webContents.send('Downloadstatus',releaseNotes,releaseName, releaseDate, updateUrl, quitAndUpdate);
-      autoUpdater.quitAndInstall();
-      console.log("quitAndInstall");
-    // win.webContents.send('isUpdateNow')
-  });
-  
+  autoUpdater.checkForUpdates();
+
 })
 
 function sendUpdateMessage(text) {
