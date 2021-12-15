@@ -158,7 +158,7 @@
             const transactionpath = userhome(USE_HOME, 'transaction.json');
             let { ipcRenderer } = require('electron');
             ipcRenderer.on("balance", (event, symbol, balance) => {
-                console.log(symbol, balance);
+                //console.log(symbol, balance);
                 // $(".selecttoken1").attr("disabled","disabled");
                 // $(".getbalance").empty();
                 var p;
@@ -172,7 +172,7 @@
             })
             checkForUpdate();
             ipcRenderer.on("checkUpdate", (event,updateAva) => {
-                console.log(updateAva);
+                //console.log(updateAva);
                 layer.open({
                     type: 1
                     , title: false //不显示标题栏
@@ -205,8 +205,8 @@
                 var netid = $("#selectnet").val();
                 getbalance(net, data.value, netid);
 
-                console.log(data.value); //得到被选中的值
-                console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+                //console.log(data.value); //得到被选中的值
+                //console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
                 //$("#Balanotice").text("余额刷新于：" + Date());
                 var address = data.value.toString();
                 var canvas = document.getElementById('QRCode')
@@ -222,8 +222,8 @@
                 var netid = $("#selectnet").val();
                 getbalance(data.value, address, netid);
                 // console.log(data.othis); //得到美化后的DOM对象
-                console.log(data.value); //得到被选中的值
-                console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+                //console.log(data.value); //得到被选中的值
+                //console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
                 $("#Balanotice").text("余额刷新于：" + Date());
                 tokenlist();
             });
@@ -234,16 +234,16 @@
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     //下面会提到这个data是什么值
                     //使用循环遍历，给下拉列表赋值
                     $.each(data.data, function (index, value) {
-                        console.log(value);
+                        //console.log(value);
                         $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
                     });
                     var batch = $('#selectaccount').val();
                     $("#address").text("当前操作账户为 ：" + batch);
-                    console.log(batch);
+                    //console.log(batch);
                     // (new Option(value.id, value.address));
                     layui.form.render("select");//重新渲染 固定写法
                 }
@@ -253,16 +253,16 @@
                 dataType: 'json',
                 type: 'get',
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
                     //下面会提到这个data是什么值
                     //使用循环遍历，给下拉列表赋值
                     $.each(data.data, function (index, value) {
-                        console.log(value);
+                        //console.log(value);
                         $('#selectnet').append(new Option(value.id, value.net));// 下拉菜单里添加元素
                     });
                     var batch = $('#selectnet').val();
                     // $("#address").text("当前操作账户为 ：" + batch);
-                    console.log(batch);
+                    //console.log(batch);
                     // (new Option(value.id, value.address));
                     layui.form.render("select");//重新渲染 固定写法
                 }
@@ -275,34 +275,34 @@
                     dataType: 'json',
                     type: 'get',
                     success: function (data) {
-                        console.log(data);
+                        //console.log(data);
                         $(".getbalance").empty();
                         // $(".getbalance").empty();
                         //下面会提到这个data是什么值
                         //使用循环遍历，给下拉列表赋值
                         var p;
                         var address = $('#selectaccount').val();
-                        console.log(data[address]);
+                        //console.log(data[address]);
                         var k = [];
-                        console.log(k);
+                        //console.log(k);
                         // setTimeout(() => { tableIn2.reload(); }, 500);
-                        console.log("nmb===>" + $("#selectnet").val())
+                        //console.log("nmb===>" + $("#selectnet").val())
                         for (var key in data[address]) {
                             // console.log(key);
                             // console.log(data[address]);
                             // console.log(data[address][key].net);
                             if (data[address][key].net == $("#selectnet").val()) {
-                                console.log("这里")
+                                //console.log("这里")
                                 k.push(data[address][key]);
-                                console.log(k);
+                                //console.log(k);
                             } else if (data[address][key].address == "ETH") {
-                                console.log("这里")
+                                //console.log("这里")
                                 k.push(data[address][key]);
-                                console.log(k);
+                                //console.log(k);
                             }
                         }
                         for (var key in k) {
-                            console.log("symbol" + k[key].symbol)
+                            //console.log("symbol" + k[key].symbol)
                             symbol = k[key].symbol;
                             address = k[key].address;
                             Company = k[key].Company;
@@ -315,8 +315,8 @@
                                 $(".getbalance").append(a);
                             }
                         }
-                        console.log("nogood")
-                        console.log($("#selectnet option:selected").text())
+                        //console.log("nogood")
+                        //console.log($("#selectnet option:selected").text())
                         var netid = $("#selectnet").val();
                         getbalance($('#selectnet').val(), $('#selectaccount').val(), netid);
                     }
@@ -330,7 +330,7 @@
                 var canvas = document.getElementById('QRCode')
                 QRCode.toCanvas(canvas, address, function (error) {
                     if (error) console.error(error)
-                    console.log('success!');
+                    //console.log('success!');
                 })
             }, 1000);
             //setTimeout(() => { $("#Balanotice").text("余额刷新于：" + Date()); }, 1500);
