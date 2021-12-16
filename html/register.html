@@ -13,7 +13,7 @@
 
 <body style="background-color: #fff;">
     <div>
-        <div class="layui-col-xs12" style="height: 250px;background-image: linear-gradient(#0052d9, #525ee3);"
+        <div class="layui-col-xs12" style="height: 250px;    background-image: linear-gradient(#1a6ffb, #7580ff);"
             id="body1">
             <div class="layui-col-xs12">
                 <div class="layui-col-xs10" style="-webkit-app-region: drag;font-size: 25px;">&nbsp;</div>
@@ -29,18 +29,24 @@
                 <div class="layui-col-xs3">&nbsp;</div>
             </div>
             <div class="layui-col-xs12">&nbsp;</div>
-            <div class="layui-col-xs3">&nbsp;</div>
-            <div class="layui-col-xs6" id="registering">&nbsp;</div>
-            <div class="layui-col-xs3"></div>&nbsp;
-
+            <div class="layui-col-xs5">&nbsp;</div>
+            <div class="layui-col-xs2" id="registering">&nbsp;</div>
+            <div class="layui-col-xs5">&nbsp;</div>
         </div>
         <div class="layui-col-xs12" id="body2">
-            <div class="layui-col-xs12"
-                style="text-align:center;color: #181B21;font-weight:700;font-size:50px;font-family:Arial Black;text-shadow:2px 2px 5px #6d6d6d;">
-                Shark
+            <div class="layui-col-xs12" style="text-align: center;
+            color: #000000;
+            font-weight: 700;
+            font-size: 50px;
+            font-family: Arial Black;
+            text-shadow: 2px 2px 5px #c9c9c9;">
+                SHARK
             </div>
-            <div class="layui-col-xs12"
-                style="text-align:center;color: #0052d9;font-weight:700;font-size:35px;font-family:Arial Black">
+            <div class="layui-col-xs12" style="text-align: center;
+            color: #0059ff;
+            font-weight: 700;
+            font-size: 35px;
+            font-family: Arial Black;">
                 暴鲨钱包
             </div>
             <div class="layui-col-xs12">
@@ -48,7 +54,7 @@
                     输入密码,注册您的小鲨鱼钱包。
                 </div>
             </div>
-            <div class="layui-col-xs12">&nbsp;</div>
+            <div class="layui-col-xs12" style="font-size: 3px;">&nbsp;</div>
             <div class="layui-col-xs12">
                 <form name="register1" class="layui-col-xs12 layui-form" id="register1">
                     <div class="layui-form-item layui-col-xs12 tab_re">
@@ -77,7 +83,7 @@
                         <div class="layui-col-xs3">&nbsp;</div>
                         <div class="layui-input-block layui-col-xs6" style=" margin: 0;">
                             <button class="layui-btn layui-btn-fluid layui-btn-radius" lay-submit lay-filter="formDemo"
-                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">注册</button>
+                                style="background:#6d7eff;;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">注册</button>
                         </div>
                         <div class="layui-col-xs3">&nbsp;</div>
                     </div>
@@ -100,28 +106,37 @@
                         <div class="layui-col-xs1">&nbsp;</div>
                         <div class="layui-col-xs10">
                             <div class="layui-panel">
-                                <div style="padding: 9px;">
+                                <div style="padding: 9px;filter: blur(5px);" id="mnemonicbox">
                                     <h3 id="mnemonic"></h3>
                                 </div>
                             </div>
                         </div>
                         <div class="layui-col-xs1">&nbsp;</div>
                     </div>
-                    <div class="layui-col-xs12">&nbsp;</div>
+                    <div class="layui-col-xs12" style="font-size: 3px;">&nbsp;</div>
                     <div class="layui-form-item layui-col-xs12 tab_re" style="display:none;">
                         <div class="layui-col-xs3">&nbsp;</div>
                         <div class=" layui-col-xs6" style=" margin: 0;">
                             <button type="button" class="layui-btn layui-btn-fluid layui-btn-radius"
                                 onclick="yesdisplay()"
-                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">返回</button>
+                                style="background:#ff0000;;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">返回</button>
                         </div>
                         <div class="layui-col-xs3">&nbsp;</div>
                     </div>
                     <div class="layui-form-item layui-col-xs12 tab_re" style="display:none;">
-                        <div class="layui-col-xs3">&nbsp;</div>
+                        <div class="layui-col-xs3" style=" font-size: 3px;">&nbsp;</div>
                         <div class=" layui-col-xs6" style=" margin: 0;">
                             <button type="button" class="layui-btn layui-btn-fluid layui-btn-radius" onclick="tologin()"
-                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">确认并已记下助记词</button>
+                                style="background:#6d7eff;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">确认并已记下助记词</button>
+                        </div>
+                        <div class="layui-col-xs3">&nbsp;</div>
+                    </div>
+                    <div class="layui-form-item layui-col-xs12 tab_re" style="display:none;">
+                        <div class="layui-col-xs3" style=" font-size: 3px;">&nbsp;</div>
+                        <div class=" layui-col-xs6" style=" margin: 0;">
+                            <button type="button" class="layui-btn layui-btn-fluid layui-btn-radius"
+                                onclick="readzhujifu()"
+                                style="background:#6d7eff;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">查看助记词</button>
                         </div>
                         <div class="layui-col-xs3">&nbsp;</div>
                     </div>
@@ -248,7 +263,7 @@
                 });
             });
             // const bip39path = '../Accountfile/english.json';
-            
+
 
             $('.exportmnemonics').on('click', function () {
                 console.log($('#mnemonicspass1').val() + "=====")

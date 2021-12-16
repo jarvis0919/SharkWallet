@@ -24,7 +24,7 @@
                         onClick="tocloseindex()"></i>
                 </div>
             </div>
-            <div class="layui-logo">张宝</div>
+            <div class="layui-logo">SHARK</div>
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item layui-this"><a href="assets.html">资产</a></li>
                 <li class="layui-nav-item"><a href="transaction.html">交易</a></li>
@@ -68,30 +68,34 @@
                     <div class="layui-panel getfenxi">
                         <div style="padding: 0px;">
                             <div class="layui-col-xs12">&nbsp;</div>
-                            <div class="getfenxiaddress layui-col-xs12" style="text-align: center; font-size: 20px;">
+                            <div class="getfenxiaddress layui-col-xs12"
+                                style="text-align: center; font-size: 20px;-moz-box-align: center;">
                             </div>
-                            <div class="layui-col-xs12" style="padding:0px 115px 10px 115px;height: 148px;
-                            width: 148px;"><canvas id="QRCode"></canvas></div>
+                            <div class="layui-col-xs12" >
+                                <div class="layui-col-xs4">&nbsp;</div>
+                                <canvas class="layui-col-xs4" id="QRCode" style=""></canvas>
+                                <div class="layui-col-xs4">&nbsp;</div>
+                            </div>
                             <div class="layui-col-xs12" style="
                             text-align: center;
                             font-size: 19px;
                             font-weight: 300;">
-                                地址：<span id="addresscopyval" style="font-size: 18px;font-family: fantasy;"></span>
+                                <div>地址:</div>
+                                <span id="addresscopyval" style="font-size: 18px;font-family: fantasy;"></span>
                             </div>
-                            <div class="layui-col-xs12">&nbsp;</div>
+                            <div class="layui-col-xs12" style="font-size: 5px;">&nbsp;</div>
                             <div class="layui-col-xs12" id="addresscopy"
-                                style="text-align: center; font-size: 15px;color: #b4b4b4;">
+                                style="text-align: center; font-size: 15px;color: #ffffff;font-weight: bold;">
                                 点击这里复制
                             </div>
-                            <hr>
                             <form name="" class="layui-col-xs12 layui-form" id="">
                                 <div class="layui-col-xs12">&nbsp;</div>
                                 <div class="layui-form-item layui-col-xs12">
                                     <div class="layui-col-xs3">&nbsp;</div>
                                     <div class="layui-input-block layui-col-xs6" style=" margin: 0;">
                                         <button type="button"
-                                            class="layui-btn layui-btn-fluid layui-btn-radius getprivatekey" style="color: #ffffff;
-                                        background: #6b7fff;
+                                            class="layui-btn layui-btn-fluid layui-btn-radius getprivatekey" style="color: #6b7fff;
+                                        background: #fff;
                                         font-weight: 600;
                                         font-size: 18px;
                                         box-shadow: 2px 2px 2px #cfcfcf;">导出私钥</button>
@@ -132,18 +136,29 @@
                             <div class="toupdate"
                                 style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;display: none;height: 40px;">
                                 <div class="layui-col-xs12">下载进度</div>
-                                <div class="layui-progress layui-progress-big layui-col-xs12" lay-showPercent="true">
-                                    <div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>
+                                <div class="layui-progress layui-progress-big layui-col-xs12" lay-showPercent="true"
+                                    lay-filter="jingdutiao">
+                                    <div class="layui-progress-bar layui-bg-blue " lay-percent="0%"></div>
                                 </div>
+                                <div class="layui-col-xs4">总大小：</div>
+                                <div class="layui-col-xs8 updatesize"></div>
                             </div>
-
+                            <div class="layui-col-xs12 " id="jingdutiao2" style="display:none">
+                                <div class="layui-col-xs12" style="text-align: center;">下载进度</div>
+                                <div class="layui-col-xs2">&nbsp;</div>
+                                <div class="layui-progress layui-col-xs8" lay-filter="jingdutiao2">
+                                    <div class="layui-progress-bar" lay-percent="0%"></div>
+                                </div>
+                                <div class="layui-col-xs2">&nbsp;</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="layui-footer">
-            <h3 id="address"></h3>
+            <div class="layui-col-xs4" style="text-align: right;">当前操作账户为：&nbsp;&nbsp;</div>
+            <h3 id="address" class="layui-col-xs8" style="text-align: left;"></h3>
         </div>
     </div>
 
@@ -182,27 +197,32 @@
                 }
             })
             var update;
+            var updatestate = false;
+            var updatemax = false;
             ipcRenderer.on("checkUpdate", (event, updateAva, info) => {
                 console.log(updateAva);
                 console.log(info);
-                update = layer.open({
-                    type: 1
-                    , title: false //不显示标题栏
-                    , closeBtn: false
-                    , area: '300px;'
-                    , shade: 0.8
-                    , id: 'LAY_layuipro' //设定一个id，防止重复弹出
-                    , btn: ['立即下载', '残忍拒绝']
-                    , btnAlign: 'c'
-                    , moveType: 1 //拖拽模式，0或者1
-                    , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' + updateAva.msg + '<br>' + info.path + '<br>' + info.version + '<br>' + info.releaseDate + '<br></div>'
-                    , success: function (layero) {
-                        var btn = layero.find('.layui-layer-btn');
-                        btn.find('.layui-layer-btn0').on('click', function () {
-                            toupdate();
-                        });
-                    }
-                });
+                if (updatestate == false) {
+                    update = layer.open({
+                        type: 1
+                        , title: false //不显示标题栏
+                        , closeBtn: false
+                        , area: '300px;'
+                        , shade: 0.8
+                        , id: 'LAY_layuipro' //设定一个id，防止重复弹出
+                        , btn: ['立即下载', '稍后更新']
+                        , btnAlign: 'c'
+                        , moveType: 1 //拖拽模式，0或者1
+                        , content: '<div style="padding: 50px; line-height: 22px; background-color: #393D49; color: #fff; font-weight: 300;">' + updateAva.msg + '<br>' + info.path + '<br>' + info.version + '<br>' + info.releaseDate + '<br></div>'
+                        , success: function (layero) {
+                            var btn = layero.find('.layui-layer-btn');
+                            btn.find('.layui-layer-btn0').on('click', function () {
+                                toupdate();
+                                updatestate = true;
+                            });
+                        }
+                    });
+                }
             })
             ipcRenderer.on("message", (event, text) => {
                 console.log(text);
@@ -211,34 +231,36 @@
                 console.log(releaseNotes + releaseName + releaseDate + updateUrl + quitAndUpdate);
             })
             ipcRenderer.on("downloadProgress", (event, releaseNotes) => {
-                console.log(releaseNotes);
+                document.getElementById("jingdutiao2").style.display = "block";
+                element.progress('jingdutiao', `${Math.ceil(releaseNotes.percent)}%`);
+                $('.updatesize').html(((releaseNotes.total / 1024) / 1024).toFixed(2) + "MB")
+                element.progress('jingdutiao2', `${Math.ceil(releaseNotes.percent)}%`);
             })
             function toupdate() {
-                //layer.close(update);
-                
+                //layer.close(update);.update
                 update = layer.open({
                     type: 1
                     , title: false //不显示标题栏
                     , closeBtn: false
+                    , skin: 'update'
                     , area: ['500px', '200px']
                     , shade: 0.8
                     , id: 'download' //设定一个id，防止重复弹出
-                    , btn: ['取消']
+                    , btn: ['后台更新']
                     , btnAlign: 'c'
                     , moveType: 1 //拖拽模式，0或者1
                     , content: $('.toupdate')
                     , success: function (layero) {
                         ipcRenderer.send("updateApp");
-                        // var btn = layero.find('.layui-layer-btn');
-                        // btn.find('.layui-layer-btn0').on('click', function () {
-                        //     console.log("成功")
-                        //     toupdate();
-                        // });
+                        var btn = layero.find('.layui-layer-btn');
+                        btn.find('.layui-layer-btn0').on('click', function () {
+                            document.getElementById("jingdutiao2").style.display = "block";
+                        });
                     }
                 });
             }
             form.on('select(selectaccount)', function (data) {
-                $("#address").text("当前操作账户为 ：" + data.value);
+                $("#address").text(data.value);
                 $('.getfenxiaddress').text(data.elem[data.elem.selectedIndex].text);
                 $("#addresscopyval").text(data.value);
                 var net = $('#selectnet').val();
@@ -282,7 +304,7 @@
                         $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
                     });
                     var batch = $('#selectaccount').val();
-                    $("#address").text("当前操作账户为 ：" + batch);
+                    $("#address").text( batch);
                     //console.log(batch);
                     // (new Option(value.id, value.address));
                     layui.form.render("select");//重新渲染 固定写法

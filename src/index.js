@@ -79,7 +79,7 @@ app.on('second-instance', () => {
     }
   }
 });
-autoUpdater.setFeedURL('http://127.0.0.1:5500/downld/');
+autoUpdater.setFeedURL('http://101.35.46.166/');
 const returnData = {
   error: { status: -1, msg: '检测更新查询异常' },
   checking: { status: 0, msg: '正在检查应用程序更新' },
@@ -321,10 +321,42 @@ app.on('activate', () => {
     //createWindow();
   }
 });
-ipcMain.on('minimize', () => BrowserWindow.fromId(1).minimize())
-ipcMain.on('close', () => { BrowserWindow.fromId(1).close(); })
+ipcMain.on('minimize', () => {
+  BrowserWindow.fromId(1).minimize();
+})
+ipcMain.on('close', () => {
+  var ok = BrowserWindow.fromId(1).webContents.getURL();
+  console.log(ok.toString().slice(-13))
+  if (ok.toString().slice(-13) == "register.html") {
+    fs.writeFile(hashpath, "", (err) => {
+      if (err) {
+        fs.writeFile(eptionmcpath, "", (err) => {
+          if (err) {
+            app.quit();
+            return err;
+          } else {
+            console.log('文件:' + eptionmcpath + '删除成功！');
+            app.quit();
+          }
+        })
+        return err;
+      } else {
+        console.log('文件:' + hashpath + '删除成功！');
+        fs.writeFile(eptionmcpath, "", (err) => {
+          if (err) {
+            app.quit();
+            return err;
+          } else {
+            app.quit();
+            console.log('文件:' + eptionmcpath + '删除成功！');
+          }
+        })
+      }
+    })
+  } else { app.quit(); }
+})
 ipcMain.on('minimizeindex', () => BrowserWindow.fromId(2).minimize())
-ipcMain.on('tocloseindex', () => BrowserWindow.fromId(2).close())
+ipcMain.on('tocloseindex', () => app.quit())
 function startup() {
   fs.readFile(hashpath, 'utf8', (err, files) => {
     if (err) {
@@ -780,6 +812,7 @@ ipcMain.on('getMnemonic', (event, arg) => {
     console.log('写入成功');
     pass1(arg);
     console.log(hash);
+
     event.sender.send("Mnemonic", mnemonic);
   })
 

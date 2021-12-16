@@ -113,7 +113,7 @@
                 </div>
                 <div class="layui-col-xs6">
                     <div class="layui-panel getfenxi">
-                        <div style="padding: 20px;">
+                        <div style="padding: 10px 20px 0px 20px;">
                             <div id="sendbalance" style="display: block;">
                                 <div class="layui-col-xs12" style="text-align: center;font-size: 20px;">
                                     转账</div>
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="layui-form-item">
                                         <div class="layui-inline">
-                                            <label class="layui-form-label">转账金额 (ETH)</label>
+                                            <label class="layui-form-label">转账金额</label>
                                             <div class="layui-input-inline">
                                                 <input type="number" name="sendvalue" lay-verify="sendvalue"
                                                     autocomplete="off" class="layui-input" value="0" id="sendvalue"
@@ -173,7 +173,7 @@
                                             <button type="button" id="sendhaobuhao"
                                                 class="layui-btn layui-btn-fluid layui-btn-radius truesend layui-btn-disabled"
                                                 onclick=""
-                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">发送</button>
+                                                style="background:#ffffff;color:#2f73fb;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">发送</button>
                                         </div>
                                         <div class="layui-col-xs3">&nbsp;</div>
                                     </div>
@@ -193,61 +193,98 @@
                             </div>
                             <div id="sendok" style="display: none;">
                                 <form class="layui-form" action="">
-
-                                    <div id="from"></div>
-                                    <div id="to"></div>
+                                    <div class="layui-col-xs12"
+                                        style="text-align:center;font-size :20px;font-weight: bold;">交易内容</div>
+                                    <div class="layui-col-xs5 transactionfrom" id="from"></div>
+                                    <div class="layui-col-xs2 transactionfromto"><i
+                                            class="layui-icon layui-icon-next"></i></div>
+                                    <div class="layui-col-xs5 transactionto" id="to"></div>
                                     <!-- <div id="sendingETH"></div> -->
                                     <!-- <div id="gasfee"></div>
                                     <div id="allETH"></div> -->
-
-                                    <div class="layui-inline layui-col-xs12">
-                                        <label class="layui-form-label">SENDINGETH (ETH)</label>
-                                        <div class="layui-input-inline">
-                                            <input type="text" name="" lay-verify="" autocomplete="off"
-                                                class="layui-input" id="sendingETH" readonly>
+                                    <div class="layui-col-xs12" style="font-size: 10px;">&nbsp;</div>
+                                    <div class="layui-inline layui-col-xs12" style="background-color: #ffffff;color: #2f73fb;font-weight: bold;
+                                    border-color: #ffffff;
+                                    border-width: 0px;
+                                    border-radius: 15px;">
+                                        <div class="layui-col-xs6">
+                                            <div class="layui-col-xs12"
+                                                style="padding:10px 0px 0px 30px; font-size: 17px;">
+                                                <div class="sendwhat">发送金额(ETH)</div>
+                                            </div>
+                                            <div class="layui-col-xs12"
+                                                style="padding: 5px 0px 0px 50px; font-size: 20px;">
+                                                <img src="../img/eth.svg" class="layui-nav-img layui-col-xs3 imgbalance"
+                                                    style="width: 25px;height: 25px;">
+                                                <div class=" layui-col-xs3 " id="sendingETH"
+                                                    style="padding: 0px 0px 10px 10px; font-size: 20px;"></div>
+                                                <!-- <input type="text" name="" lay-verify="" autocomplete="off"
+                                                class="layui-input" id="sendingETH" readonly> -->
+                                            </div>
+                                        </div>
+                                        <div class="layui-col-xs6">
+                                            <div class="layui-col-xs12"
+                                                style="padding: 10px 0px 0px 0px; font-size: 17px;">
+                                                <div>GAS总价(ETH)</div>
+                                            </div>
+                                            <div class="layui-col-xs12"
+                                                style="padding: 5px 0px 0px 0px; font-size: 20px;">
+                                                <div class="layui-col-xs12 symbolstyle" id="sumeth"
+                                                    style=" font-size: 20px;"></div>
+                                                <!-- <input type="text" name="" lay-verify="" autocomplete="off"
+                                                class="layui-input" id="sendingETH" readonly> -->
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="layui-form-item layui-col-xs12" id="selectgas">
-                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
-                                                id="Low" name="aaa" value="" title="低" id="aaa" lay-filter="aaa">
+                                    <div class="layui-col-xs12" style="font-size: 10px;">&nbsp;</div>
+                                    <div class="layui-col-xs12" style="background-color: #ffffff;color: #2f73fb;font-weight: bold;
+                                    border-color: #ffffff;
+                                    border-width: 0px;
+                                    border-radius: 15px;">
+                                        <div class="layui-col-xs12" style="padding:10px 0px 0px 30px; font-size: 17px;">
+                                            <div class="layui-col-xs4">GAS刷新于:</div>
+                                            <div class="layui-col-xs8" id="gasdate" style="font-size: 14px;"></div>
                                         </div>
-                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
-                                                id="Medium" name="aaa" value="" title="中" id="aaa" lay-filter="aaa"
-                                                checked>
+                                        <div class="layui-form-item layui-col-xs12" id="selectgas">
+                                            <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                    id="Low" name="aaa" value="" title="低" id="aaa" lay-filter="aaa">
+                                            </div>
+                                            <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                    id="Medium" name="aaa" value="" title="中" id="aaa" lay-filter="aaa"
+                                                    checked>
+                                            </div>
+                                            <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
+                                                    id="High" name="aaa" value="" title="高" id="aaa" lay-filter="aaa">
+                                            </div>
                                         </div>
-                                        <div class="layui-col-xs4" style="text-align: center;"><input type="radio"
-                                                id="High" name="aaa" value="" title="高" id="aaa" lay-filter="aaa">
+                                        <div class="layui-inline layui-col-xs12">
+                                            <label class="layui-form-label"
+                                                style="padding: 0px 10px 0px 10px;font-size: 13px;font-weight: bold;">GAS价格(GWEI)</label>
+                                            <div class="layui-input-inline">
+                                                <input type="number" name="" lay-verify="" autocomplete="off"
+                                                    class="layui-input" id="Maxfee" style="height: 30px;
+                                                    
+                                                    background-color: #fff0;" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="layui-inline layui-col-xs12">
+                                            <label class="layui-form-label"
+                                                style="padding: 0px 10px 20px 10px;font-size: 13px;font-weight: bold;">GAS上限</label>
+                                            <div class="layui-input-inline">
+                                                <input type="number" name="" value="21000" lay-verify=""
+                                                    autocomplete="off" class="layui-input" id="sendGaslimit" style="height: 30px;
+                                                    background-color: #fff0;">
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="layui-inline layui-col-xs12">
-                                        <label class="layui-form-label">Maxfee (GWEI)</label>
-                                        <div class="layui-input-inline">
-                                            <input type="number" name="" lay-verify="" autocomplete="off"
-                                                class="layui-input" id="Maxfee" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="layui-inline layui-col-xs12">
-                                        <label class="layui-form-label">GAS limit</label>
-                                        <div class="layui-input-inline">
-                                            <input type="number" name="" value="21000" lay-verify="" autocomplete="off"
-                                                class="layui-input" id="sendGaslimit">
-                                        </div>
-                                    </div>
-                                    <div class="layui-col-xs12">
-                                        <div class="layui-col-xs4">总额为:</div>
-                                        <div class="layui-col-xs8" id="sumeth"></div>
-                                    </div>
-                                    <div class="layui-col-xs12">
-                                        <div class="layui-col-xs4">gasPrice刷新于:</div>
-                                        <div class="layui-col-xs8" id="gasdate"></div>
-                                    </div>
+                                    <div class="layui-col-xs12" style="font-size: 10px;">&nbsp;</div>
                                     <div class="layui-form-item">
                                         <div class="layui-col-xs3">&nbsp;</div>
                                         <div class=" layui-col-xs6" style=" margin: 0;">
                                             <button type="button"
                                                 class="layui-btn layui-btn-fluid layui-btn-radius truesendyesyes"
                                                 onclick=""
-                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">确认并发送</button>
+                                                style="background:#ffffff;color:#2f73fb;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;height: 35px;">确认并发送</button>
                                         </div>
                                         <div class="layui-col-xs3">&nbsp;</div>
                                     </div>
@@ -256,7 +293,7 @@
                                         <div class=" layui-col-xs6" style=" margin: 0;">
                                             <button type="button"
                                                 class="layui-btn layui-btn-fluid layui-btn-radius cancel" onclick=""
-                                                style="background:#0052d9;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;">取消</button>
+                                                style="background:#ffffff;color:#2f73fb;font-weight:600;font-size:18px;box-shadow:2px 2px 2px #cfcfcf;height: 35px;">取消</button>
                                         </div>
                                         <div class="layui-col-xs3">&nbsp;</div>
                                     </div>
@@ -348,8 +385,8 @@
             </div>
         </div>
         <div class="layui-footer ">
-            <div class="layui-col-xs3">当前操作账户为</div>
-            <h3 id="address" class="layui-col-xs9"></h3>
+            <div class="layui-col-xs4" style="text-align: right;">当前操作账户为：&nbsp;&nbsp;</div>
+            <h3 id="address" class="layui-col-xs8" style="text-align: left;"></h3>
             <p id="nowtoken" style="display: none;">ETH</p>
             <p id="nowtokenaddress" style="display: none;"></p>
             <p id="nowtokenCompany" style="display: none;"></p>
@@ -417,7 +454,7 @@
                 document.getElementById("High").value = High;
                 $("#Maxfee").val($('#selectgas input:checked').val());
                 $("#gasdate").text(Date());
-                var sumeth = ($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9 + Number($("#sendingETH").val());
+                var sumeth = ($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9;
                 $("#sumeth").text(sumeth);
             })
             ipcRenderer.on("transactionopen", (event, str, state) => {
@@ -494,6 +531,8 @@
                 tokenlist();
                 transactionlist();
                 symbol_this = "ETH"
+                cancel();
+                clearInterval(ref);
 
             });
             form.on('select(selectnet)', function (data) {
@@ -504,8 +543,8 @@
                 // console.log(data.othis); //得到美化后的DOM对象
                 console.log(data.value); //得到被选中的值
                 console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
-
-
+                cancel();
+                clearInterval(ref);
                 // tokenlist();
                 tokenlist();
                 transactionlist();
@@ -520,7 +559,7 @@
             form.on('radio(aaa)', function (data) {
                 console.log(data);
                 $("#Maxfee").val(data.value);
-                var sumeth = (($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9) + Number($("#sendingETH").val());;
+                var sumeth = (($("#Maxfee").val() * $("#sendGaslimit").val()) / 1e9) + Number($("#sendingETH").html());;
                 $("#sumeth").text(sumeth);
                 form.render();
             });
@@ -676,11 +715,11 @@
                                 $("#nowtokenaccuracy").html(k[key].decimals);
                                 $("#nowtokenCompany").html(Company);
                                 $(".layui-card-header3").empty();
-                                a = '<a class="layui-col-xs12 selecttoken1" id="selecttoken1" style="padding: 10px 0px 0px 0px;top:0;left:0;"><div class="layui-panel getbalancepanel" style=""><div style="padding: 15px"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs9"><div class="layui-col-xs6" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs5" style="font-size: 18px;text-align: center;"></div><div class="layui-col-xs1" style="font-size: 15px;">' + Company + '</div><div style="display: none;">' + address + '</div></div></div></div></a>';
+                                a = '<a class="layui-col-xs12 selecttoken1" id="selecttoken1" style="padding: 10px 0px 0px 0px;top:0;left:0;"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs12"style="padding: 15px 0px 0px 15px;"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs10"><div class="layui-col-xs4" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs4" style="font-size: 18px;text-align: center;"> &nbsp; </div><div class="layui-col-xs2" style="font-size: 15px;">' + Company + '</div><i class="layui-icon layui-icon-triangle-r layui-col-xs2" style="font-size:40px;text-align: center;text-shadow: 1px 2px 7px #e1ebff;"></i><div style="display: none;">' + address + '</div></div></div></div></a>';
                                 $(".layui-card-header3").prepend(a);
                                 numtoken = numtoken + 1;
                             } else {
-                                a = '<a class="layui-col-xs12 Listtoken" style="padding: 10px 0px 0px 0px;" onClick=\'selecttoken1("' + symbol + '")\'><div class="layui-panel getbalancepanel" style=""><div style="padding: 15px"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs9"><div class="layui-col-xs6" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs5" style="font-size: 18px;text-align: center;"></div><div class="layui-col-xs1" style="font-size: 15px;">' + Company + '</div><div style="display: none;">' + address + '</div></div></div></div></a>';
+                                a = '<a class="layui-col-xs12 Listtoken" style="padding: 10px 0px 0px 0px;" onClick=\'selecttoken1("' + symbol + '")\'><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs12"style="padding: 15px 0px 0px 15px;"><img src="../img/ETH.png" class="layui-nav-img layui-col-xs3 imgbalance"><div class="layui-col-xs9"style="padding: 8px 0px 0px 0px;"><div class="layui-col-xs6" style="font-size: 20px;">' + symbol + '</div><div class="' + symbol + ' symbolstyle layui-col-xs5" style="font-size: 18px;text-align: center;"></div><div class="layui-col-xs1" style="font-size: 15px;">' + Company + '</div><div style="display: none;">' + address + '</div></div></div></div></a>';
                                 $(".getbalance1").append(a);
                                 numtoken = numtoken + 1;
                             }
@@ -746,9 +785,9 @@
                                         sendvalue = k[key].value / Math.pow(10, Number($("#nowtokenaccuracy").html()));;
                                     }
                                     if (k[key].transactionIndex == null) {
-                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div></div></div></div></div></div>';
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div><i class="layui-icon layui-icon-spread-left layui-col-xs2" style="font-size:20px;text-align: center;text-shadow: 1px 2px 7px #e1ebff;"></i></div></div></div></div></div>';
                                     } else {
-                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle txtUpsideDown" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" "><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div></div></div></div></div></div>';
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',0)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle txtUpsideDown" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" "><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">发送</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">至:</div><div class="layui-col-xs8 transactionaddress">' + k[key].to + '</div><i class="layui-icon layui-icon-spread-left layui-col-xs2" style="font-size:20px;text-align: center;text-shadow: 1px 2px 7px #e1ebff;"></i></div></div></div></div></div>';
                                     }
                                     $(".transactionrecord").prepend(a);
                                 } else if (k[key].to == address) {
@@ -757,12 +796,12 @@
                                     } else {
                                         console.log(k[key].value);
                                         console.log($("#nowtokenaccuracy").val());
-                                        sendvalue = k[key].value / Math.pow(10, Number($("#nowtokenaccuracy").html()));;
+                                        sendvalue = k[key].value / Math.pow(10, Number($("#nowtokenaccuracy").html()));
                                     }
                                     if (k[key].transactionIndex == null) {
-                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div></div></div></div></div></div>';
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12" ><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div><i class="layui-icon layui-icon-spread-left layui-col-xs2" style="font-size:20px;text-align: center;text-shadow: 1px 2px 7px #e1ebff;"></i></div></div></div></div></div>';
                                     } else {
-                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12"><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div></div></div></div></div></div>';
+                                        a = '<div class="layui-col-xs12" id="" style="padding: 10px 0px 0px 0px;" onClick=" opentransaction(' + k[key].id + ',1)"><div class="layui-panel getbalancepanel" style=""><div class="layui-col-xs2" style="padding: 22px 0px 0px 18px;"> <i class="layui-icon layui-icon-download-circle" id="itransaction' + k[key].id + '" style="font-size: 30px; font-weight:bold;"></i></div><div class="layui-col-xs10" style="padding: 13px 0px 0px 0px;"><div class="layui-col-xs12"><div class="layui-col-xs12"><div class="layui-col-xs4"style="font-size: 18px;font-weight:bold;">接收</div><div class="layui-col-xs6 transactionvalue symbolstyle" style="text-align: right;"> ' + sendvalue + '</div><div class="layui-col-xs2"style="text-align: center;font-size: 17px;font-weight:bold;">' + $("#nowtokenCompany").html() + '</div></div><div class="layui-col-xs12" style="font-size: 14px;text-align: center;"><div class="layui-col-xs2" style="font-size: 13px;text-align: left;">来自:</div><div class="layui-col-xs8 transactionaddress">' + k[key].from + '</div><i class="layui-icon layui-icon-spread-left layui-col-xs2" style="font-size:20px;text-align: center;text-shadow: 1px 2px 7px #e1ebff;"></i></div></div></div></div></div>';
                                     }
                                     $(".transactionrecord").prepend(a);
                                 }
@@ -784,6 +823,8 @@
                 } else {
                     $("#sendGaslimit").val(53000);;
                 }
+                cancel();
+                clearInterval(ref);
                 setTimeout(() => {
                     symbol_this = document.getElementById("nowtoken").innerHTML;
                     console.log("now" + symbol_this);
@@ -800,6 +841,7 @@
                         } else {
                             $("#sendGaslimit").val(53000);;
                         }
+                        $(".sendwhat").html("发送金额(" + $("#nowtokenCompany").html() + ")");
                         getpirce($('#selectnet').val());
                         setTimeout(() => { $("#Maxfee").val($('#selectgas input:checked').val()); }, 2000);
                         ref = setInterval(function () {
@@ -824,12 +866,12 @@
                 console.log($('#selectaccount').val())
                 console.log($('#to').html())
                 console.log($('#nowtokenaddress').html())
-                console.log($('#sendingETH').val())
+                console.log($('#sendingETH').html())
                 console.log($('#nowtoken').html())
                 // if ($('#nowtokenaddress').html() == "ETH") {
                 //     sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), $('#sendingETH').val(), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
                 // }
-                sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), $('#sendingETH').val(), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
+                sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), Number($('#sendingETH').html()) * Math.pow(10, Number($("#nowtokenaccuracy").html())), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
             });
             ipcRenderer.on("transaction", (event, state, transaction) => {
                 console.log(transaction);

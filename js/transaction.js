@@ -60,10 +60,16 @@ function truesend() {
     document.getElementById("sendok").style.display = "block";
     document.getElementById("from").innerHTML = document.getElementById("address").innerHTML;
     document.getElementById("to").innerHTML = document.getElementById("HandoverCompany").value;
-    document.getElementById("sendingETH").value = document.getElementById("sendvalue").value;
+    console.log(document.getElementById("sendvalue").value)
+    if (document.getElementById("sendvalue").value == 0) {
+      console.log("这里")
+      document.getElementById("sendingETH").innerHTML = "0";
+    } else {
+      document.getElementById("sendingETH").innerHTML = document.getElementById("sendvalue").value;
+    }
     sendbalancestate = !sendbalancestate;
     sendok = !sendok;
-  
+
   } else {
     console.log("错误，请检查软件")
   }
@@ -103,16 +109,16 @@ ipcRenderer.on("transactionhash", (event, state, transaction) => {
     document.getElementById("transaction").innerHTML = "交易失败";
   }
 })
-function opentransaction(id,state) {
+function opentransaction(id, state) {
   console.log(id);
-  ipcRenderer.send("opentransaction",id,state);
+  ipcRenderer.send("opentransaction", id, state);
 }
 
 ipcRenderer.on("trackTransaction", (event, state) => {
   console.log(state);
 })
 
-function getLocalTime(nS) {     
-  return new Date(parseInt(nS) * 1000).toLocaleString();     
+function getLocalTime(nS) {
+  return new Date(parseInt(nS) * 1000).toLocaleString();
 }
 

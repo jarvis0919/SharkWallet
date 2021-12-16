@@ -437,7 +437,35 @@
                     </form>
                 </section>
                 <section class="tab1" style="display:none;">
-                    <img class="" src="../img/about.jpg" style="height:520px; width:520px;" draggable="false" />
+                    <div class="layui-col-xs12" style="text-align: center;
+                    color: #000000;
+                    font-weight: 700;
+                    font-size: 50px;
+                    font-family: Arial Black;
+                    text-shadow: 2px 2px 5px #c9c9c9;">
+                        SHARK
+                    </div>
+                    <div class="layui-col-xs12" style="text-align: center;
+                    color: #0059ff;
+                    font-weight: 700;
+                    font-size: 35px;
+                    font-family: Arial Black;">
+                        暴鲨钱包
+                    </div>
+                    <div class="layui-col-xs12">
+                        <div class="layui-col-xs4">&nbsp;</div>
+                        <img class="layui-col-xs4" src="../img/B.ico" style="height:240px; width:240px;"
+                            draggable="false" />
+                        <!-- <img class="" src="../img/about.jpg" style="height:520px; width:520px;" draggable="false" /> -->
+                        <div class="layui-col-xs4">&nbsp;</div>
+                    </div>
+                    <div class="layui-col-xs12">
+                        <div class="layui-col-xs2">&nbsp;</div>
+                        <img class="layui-col-xs3" src="../img/github.jpg" style="height:50px; width:50px;"
+                            draggable="false" />
+                        <div class="layui-col-xs7"style="padding:15px;font-size:20px;font-weight:bold">https://github.com/jarvis0919/SharkWallet</div>
+                    </div>
+
                 </section>
             </div>
             <!-- <div style="padding: 15px;">内容主体区域。记得修改 layui.css 和 js 的路径</div> -->
@@ -800,7 +828,7 @@
                 var tokenaddress_this = $('#addtokenaddress').val();
                 var address_this = $('#selectaddress').val();
                 console.log($('#selectnet').val());
-
+                var net_this = $('#selectnet').val()
                 addToken(tokenaddress_this, address_this, net_this);
                 setTimeout(() => { tableIn3.reload(); }, 1000);
 

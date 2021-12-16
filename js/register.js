@@ -31,9 +31,16 @@ function nodisplay() {
   oDiv[3].style.display = "none";
   oDiv1[0].style.display = "block";
   oDiv1[1].style.display = "block";
-  oDiv1[2].style.display = "block";
+  oDiv1[2].style.display = "none";
+  oDiv1[3].style.display = "block";
 }
-
+function readzhujifu(){
+  var container1 = document.getElementById('tologin');
+  var oDiv1 = container1.getElementsByClassName('tab_re');
+  oDiv1[2].style.display = "block";
+  oDiv1[3].style.display = "none";
+  document.getElementById("mnemonicbox").style.filter= "blur(0px)";
+}
 function yesdisplay() {
   var container = document.getElementById('register1');
   var oDiv = container.getElementsByClassName('tab_re');
@@ -46,9 +53,11 @@ function yesdisplay() {
   oDiv1[0].style.display = "none";
   oDiv1[1].style.display = "none";
   oDiv1[2].style.display = "none";
+  oDiv1[3].style.display = "none";
   ipcRenderer.send("delfile", 2);
   document.getElementById("state").innerHTML = "输入密码,注册您的小鲨鱼钱包。";
   document.getElementById("mnemonic").innerHTML = "";
+  document.getElementById("mnemonicbox").style.filter= "blur(5px)";
 }
 function tologin(state) {
   if (state == 1) {
@@ -67,7 +76,7 @@ function tologin(state) {
   oDiv1[1].style.display = "none";
   oDiv1[2].style.display = "none";
   ipcRenderer.send("createaccount", 1);
-  a = '<div style="color: #fff;"><i class="layui-icon layui-icon-loading-1 layui-anim layui-anim-rotate layui-anim-loop "style="font-size: 60px;"></i></div>';
+  a = '<div style="color: #fff;"><i class="layui-icon layui-icon-loading layui-anim layui-anim-rotate layui-anim-loop "style="font-size: 80px;"></i></div>';
   document.getElementById("registering").innerHTML = a;
   setTimeout(() => {
     var body1 = document.getElementById("body1"); body1.style.height = "600px";
@@ -76,7 +85,9 @@ function tologin(state) {
   setTimeout(() => { ipcRenderer.send("togo", '../html/login.html'); }, 3000);
 }
 
-ipcRenderer.on("Mnemonic", (event, arg) => {
+
+ipcRenderer.on("Mnemonic", (event, arg,a) => {
+  console.log(a)
   setTimeout(() => { nodisplay(); }, 500);
   setTimeout(() => {
     document.getElementById("state").innerHTML = "注册成功,请牢记您的助记词，并拒绝透露给其他人";
