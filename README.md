@@ -6,7 +6,7 @@
 
 
 
-## 目录
+<!-- ## 目录
 - [前言](#前言)
 - [第一章 背景与现状](#第一章背景与现状)
 	- [1.1 保险业的发展历史](#11保险业的发展历史)
@@ -499,3 +499,11 @@ struct policy_holder {
 - [我的主页](https://https://github.com/jarvis0919/) - 💌If you need to contact me, this is my home page.
 - [Emil](1318258863@qq.com) - My mailbox, business is not disturbed.
 
+ -->
+ 
+如要转载请注明来源    作者：Jarvis
+
+### 联系我
+
+- [我的主页](https://https://github.com/jarvis0919/) - 💌If you need to contact me, this is my home page.
+- [Emil](1318258863@qq.com) - My mailbox, business is not disturbed.
