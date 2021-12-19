@@ -406,11 +406,14 @@ function addPreZero(num) {
 }
 function pass1(p) {
   pass = p;
-  if ((pass.length / 2) < 17) {
-    for (var i = 0; i < (17 - (pass.length / 2)); i++) {
+  console.log(pass.length);
+  if (pass.length < 17) {
+    var leng = pass.length;
+    for (var i = 0; (i + leng) < 16; i++) {
       pass += "0";
     }
   }
+  console.log("pass" + pass);
 }
 function encrypt(word) {
   var key = CryptoJS.enc.Utf8.parse(pass);
@@ -538,8 +541,6 @@ const trackTransaction = async (hash, id) => {
       })
     })
   }, 5000);
-
-
 }
 const getTransaction = async (hash, net) => {
   web3 = new Web3(new Web3.providers.HttpProvider(net))
@@ -654,8 +655,8 @@ const createaccounts = async (arg, nub) => {
       //编码地址
       console.log(address.toString());
       console.log('account', i + 1, '0x' + address.toString('hex'))
-      var private = util.bufferToHex(key._hdkey._privateKey);
-      var res = private.substr(2);
+      var K = util.bufferToHex(key._hdkey._privateKey);
+      var res = K.substr(2);
       console.log(util.bufferToHex(key._hdkey._privateKey))
       console.log(res);
       let Encryptedprivate = encrypt(res);
@@ -954,8 +955,9 @@ ipcMain.on('importaccount', (event, state, decryptfile, pass) => {
   }
 })
 ipcMain.on('exportaccount', (event, address, password) => {
-  if ((password.length / 2) < 17) {
-    for (var i = 0; i < (17 - (password.length / 2)); i++) {
+  if (password.length < 17) {
+    var leng = password.length;
+    for (var i = 0; (i + leng) < 16; i++) {
       password += "0";
     }
   }
