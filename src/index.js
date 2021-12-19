@@ -24,6 +24,7 @@ const accountpath = userhome(USE_HOME, 'account.json');
 const netpath = userhome(USE_HOME, 'net.json');
 const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
 const transactionpath = userhome(USE_HOME, 'transaction.json');
+const cookiepath = userhome(USE_HOME, 'cookie.json');
 const erc20abi = path.join(__dirname, '../html/readjson/erc20abi.json');
 
 
@@ -143,7 +144,6 @@ function tostart() {
   }
 }
 app.on('ready', () => {
-
   fs.mkdir(USE_HOME, { recursive: true }, (err) => {
     if (err) {
       throw err;
@@ -302,6 +302,21 @@ app.on('ready', () => {
           })
           console.log(err);
           return false;
+        }
+      })
+      fs.readFile(cookiepath, (err, data) => {
+        if (err) {
+          var person1 = {
+            account: "",
+            net: "",
+          }
+          var str = JSON.stringify(person1);
+          fs.writeFile(cookiepath, str, err => {
+            if (err) {
+              console.log(err)
+            }
+          })
+          console.log(err);
         }
       })
       console.log('ok!');
@@ -788,6 +803,24 @@ const addToken = async (tokenaddress, address, net) => {
     }
   })
 }
+ipcMain.on('Cookierefresh', (event, net, account) => {
+  event.reply('Cookierefresh', "注册");
+  fs.readFile(cookiepath, (err, data) => {
+    if (err) {
+      console.log(err);
+    }
+    var person1 = {
+      account: account,
+      net: net,
+    }
+    var str = JSON.stringify(person1);
+    fs.writeFile(cookiepath, str, err => {
+      if (err) {
+        console.log(err)
+      }
+    })
+  })
+})
 ipcMain.on('getMnemonic', (event, arg) => {
   event.reply('getMnemonic', "注册");
   console.log(arg);
@@ -952,10 +985,53 @@ ipcMain.on('editaccount', (event, address, id) => {
       }
     }
   })
-
-
 })
-
+ipcMain.on('removeaccount', (event, address) => {
+  event.reply('removeaccount', "删除账户");
+  fs.readFile(accountpath, (err, account) => {
+    if (err) {
+      console.log(err);
+    }
+    var person = account.toString();
+    person = JSON.parse(person);
+    for (a = 0; a < person.data.length; a++) {
+      console.log(a);
+      if (person.data[a].address == address) {
+        person.data.splice(a, 1);
+      }
+    }
+    var str = JSON.stringify(person);
+    fs.writeFile(accountpath, str, err => {
+      if (err) {
+        console.log(err)
+      }
+      event.sender.send("remove", 0);
+    })
+  })
+})
+ipcMain.on('removenet', (event, netstate) => {
+  event.reply('removenet', "删除网络");
+  fs.readFile(netpath, (err, net) => {
+    if (err) {
+      console.log(err);
+    }
+    var person = net.toString();
+    person = JSON.parse(person);
+    for (a = 0; a < person.data.length; a++) {
+      console.log(a);
+      if (person.data[a].state == netstate) {
+        person.data.splice(a, 1);
+      }
+    }
+    var str = JSON.stringify(person);
+    fs.writeFile(netpath, str, err => {
+      if (err) {
+        console.log(err)
+      }
+      event.sender.send("remove", 0);
+    })
+  })
+})
 ipcMain.on('getbalance', (event, net, address, netid) => {
   event.reply('getblance', "获取余额")
   // console.log(net);

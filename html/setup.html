@@ -27,7 +27,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item "><a href="assets.html">资产</a></li>
                 <li class="layui-nav-item"><a href="transaction.html">交易</a></li>
-                <li class="layui-nav-item"><a href="dapp.html">DAPP</a></li>
+                <!-- <li class="layui-nav-item"><a href="dapp.html">DAPP</a></li> -->
                 <li class="layui-nav-item layui-this"><a href="setup.html">设置</a></li>
 
             </ul>
@@ -315,11 +315,15 @@
                 </section>
                 <section class="tab1" style="display:none;background-color: rgb(208, 0, 255)">
                     <form class="layui-col-xs12 layui-form" style="" action="">
+                        <div class="layui-col-xs12">&nbsp;</div>
+                        <div class="layui-col-xs12">&nbsp;</div>
+                        <div class="layui-col-xs12">&nbsp;</div>
+                        <div class="layui-col-xs12">&nbsp;</div>
                         <div class="layui-form-item layui-col-xs12">
                             <div class="layui-col-xs3">&nbsp;</div>
                             <div class="layui-input-block layui-col-xs6" style="margin: 0;">
                                 <button class="layui-btn layui-btn-fluid layui-btn-radius RearrangeAccounts"
-                                    type="button" style="background: #6d7eff;
+                                    type="button" style="background: #ff3c00;
                                 font-weight: 600;
                                 font-size: 18px;
                                 box-shadow: 2px 2px 2px #cfcfcf;">重置账户</button>
@@ -330,7 +334,7 @@
                             <div class="layui-col-xs3">&nbsp;</div>
                             <div class="layui-input-block layui-col-xs6 " style="margin: 0;">
                                 <button class="layui-btn layui-btn-fluid layui-btn-radius Viewmnemonics" type="button"
-                                    style="background: #6d7eff;
+                                    style="background: #ff3c00;
                                 font-weight: 600;
                                 font-size: 18px;
                                 box-shadow: 2px 2px 2px #cfcfcf;">查看助记词</button>
@@ -341,7 +345,7 @@
                             <div class="layui-col-xs3">&nbsp;</div>
                             <div class="layui-input-block layui-col-xs6" style="margin: 0;">
                                 <button class="layui-btn layui-btn-fluid layui-btn-radius initializationruanjian"
-                                    type="button" style="background: #6d7eff;
+                                    type="button" style="background: #ff3c00;
                                 font-weight: 600;
                                 font-size: 18px;
                                 box-shadow: 2px 2px 2px #cfcfcf;">软件初始化</button>
@@ -373,7 +377,7 @@
                             <div class="layui-col-xs3">&nbsp;</div>
                             <div class="layui-input-block layui-col-xs6" style="margin: 0;">
                                 <button class="layui-btn layui-btn-fluid layui-btn-radius toRearrange" type="button"
-                                    style="background: #6d7eff;
+                                    style="background: #ff3c00;
                                     font-weight: 600;
                                     font-size: 18px;
                                     box-shadow: 2px 2px 2px #cfcfcf;">重置账户</button>
@@ -396,7 +400,7 @@
                             <div class="layui-col-xs3">&nbsp;</div>
                             <div class="layui-input-block layui-col-xs6" style="margin: 0;">
                                 <button class="layui-btn layui-btn-fluid layui-btn-radius toinitialization"
-                                    type="button" style="background: #6d7eff;
+                                    type="button" style="background: #ff3c00;
                                     font-weight: 600;
                                     font-size: 18px;
                                     box-shadow: 2px 2px 2px #cfcfcf;">初始化软件</button>
@@ -463,7 +467,8 @@
                         <div class="layui-col-xs2">&nbsp;</div>
                         <img class="layui-col-xs3" src="../img/github.jpg" style="height:50px; width:50px;"
                             draggable="false" />
-                        <div class="layui-col-xs7"style="padding:15px;font-size:20px;font-weight:bold">https://github.com/jarvis0919/SharkWallet</div>
+                        <div class="layui-col-xs7" style="padding:15px;font-size:20px;font-weight:bold">
+                            https://github.com/jarvis0919/SharkWallet</div>
                     </div>
 
                 </section>
@@ -516,7 +521,34 @@
             const netpath = userhome(USE_HOME, 'net.json');
             const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
             const transactionpath = userhome(USE_HOME, 'transaction.json');
-
+            ipcRenderer.on("addtokenstate", (event, state) => {
+                tableIn3.reload();
+                document.getElementById("addtokenstate").innerHTML = state;
+            })
+            ipcRenderer.on("net", (event, state) => {
+                console.log(state);
+                if (state == "true") {
+                    document.getElementById("addnetstate").innerHTML = "添加成功";
+                    console.log("成功");
+                } else {
+                    document.getElementById("addnetstate").innerHTML = state;
+                    console.log("添加失败")
+                }
+                tableIns.reload();
+            })
+            ipcRenderer.on("import", (event, Account) => {
+                console.log(Account);
+                document.getElementById("importstate").innerHTML = Account;
+                tableIn2.reload();
+            })
+            ipcRenderer.on("editaccountstate", (event, state) => {
+                document.getElementById("editaccountstate").innerHTML = state;
+                tableIn2.reload();
+            })
+            ipcRenderer.on("remove", (event, state) => {
+                tableIns.reload();
+                tableIn2.reload();
+            })
             var active = {
                 display1: function () {
                     var container = document.getElementById('container');
@@ -686,7 +718,7 @@
                 } else if (creatoredit == "edit") {
                     editnet(id, net, chainid, netstate);
                 }
-                setTimeout(() => { tableIns.reload(); }, 1000);
+                //setTimeout(() => { tableIns.reload(); }, 1000);
 
             });
             var tableIn2 = table.render({
@@ -808,7 +840,6 @@
                 ]]
             });
             $('.addshowtoken').on('click', function () {
-
                 addshowtoken = layer.open({
                     type: 1
                     , title: "添加代币"
@@ -831,10 +862,7 @@
                 var net_this = $('#selectnet').val()
                 addToken(tokenaddress_this, address_this, net_this);
                 setTimeout(() => { tableIn3.reload(); }, 1000);
-
             })
-
-
             var anquan;
 
             $('.RearrangeAccounts').on('click', function () {
@@ -925,8 +953,9 @@
                 console.log(obj);
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
-                        remove1(obj.data.id);
-                        setTimeout(() => { tableIns.reload(); }, 500);
+                        console.log(obj.data);
+                        removenet(obj.data.state);
+                        // setTimeout(() => { tableIns.reload(); }, 500);
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {
@@ -962,8 +991,8 @@
                 console.log(obj)
                 if (obj.event === 'del') {
                     layer.confirm('真的删除行么', function (index) {
-                        remove2(obj.data.id);
-                        setTimeout(() => { tableIn2.reload(); }, 500);
+                        removeaccount(obj.data.address);
+                        // setTimeout(() => { tableIn2.reload(); }, 500);
                         layer.close(index);
                     });
                 } else if (obj.event === 'edit') {

@@ -28,7 +28,7 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="assets.html">资产</a></li>
                 <li class="layui-nav-item layui-this"><a href="transaction.html">交易</a></li>
-                <li class="layui-nav-item"><a href="dapp.html">DAPP</a></li>
+                <!-- <li class="layui-nav-item"><a href="dapp.html">DAPP</a></li> -->
                 <li class="layui-nav-item"><a href="setup.html">设置</a></li>
 
             </ul>
@@ -385,8 +385,9 @@
             </div>
         </div>
         <div class="layui-footer ">
-            <div class="layui-col-xs4" style="text-align: right;">当前操作账户为：&nbsp;&nbsp;</div>
-            <h3 id="address" class="layui-col-xs8" style="text-align: left;"></h3>
+            <div class="layui-col-xs3" style="text-align: right;font-weight: bold;">当前操作账户为：&nbsp;&nbsp;</div>
+            <h3 id="account" class="layui-col-xs2" style="text-align: left;font-weight: bold;"></h3>
+            <h3 id="address" class="layui-col-xs7" style="text-align: left;font-weight: bold;"></h3>
             <p id="nowtoken" style="display: none;">ETH</p>
             <p id="nowtokenaddress" style="display: none;"></p>
             <p id="nowtokenCompany" style="display: none;"></p>
@@ -410,6 +411,7 @@
             const netpath = userhome(USE_HOME, 'net.json');
             const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
             const transactionpath = userhome(USE_HOME, 'transaction.json');
+            const cookiepath = userhome(USE_HOME, 'cookie.json');
             var symbol_this;
             var sendonclick = false;
             var tokenonclick = true;
@@ -527,7 +529,9 @@
                 // console.log(data.othis); //得到美化后的DOM对象
                 console.log(data.value); //得到被选中的值
                 console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+                $("#account").text(data.elem[data.elem.selectedIndex].text);
                 $("#Balanotice").text("余额刷新于：" + Date());
+                Cookierefresh(net,data.value);
                 tokenlist();
                 transactionlist();
                 symbol_this = "ETH"
@@ -543,6 +547,7 @@
                 // console.log(data.othis); //得到美化后的DOM对象
                 console.log(data.value); //得到被选中的值
                 console.log(data.elem[data.elem.selectedIndex].text); //得到文本内容
+                Cookierefresh(data.value,address);
                 cancel();
                 clearInterval(ref);
                 // tokenlist();
@@ -616,9 +621,6 @@
                 type: 'get',
                 success: function (data) {
                     console.log(data);
-                    //下面会提到这个data是什么值
-                    //使用循环遍历，给下拉列表赋值
-
                     $.each(data.data, function (index, value) {
                         console.log(value);
                         $('#hc_select').append(new Option(value.id, value.address));// 下拉菜单里添加元素
@@ -638,16 +640,39 @@
                     console.log(data);
                     //下面会提到这个data是什么值
                     //使用循环遍历，给下拉列表赋值
+                    $.ajax({
+                        url: cookiepath,
+                        dataType: 'json',
+                        type: 'get',
+                        success: function (cookie) {
+                            console.log(cookie);
+                            var key = 0;
+                            $.each(data.data, function (index, value) {
+                                console.log(key)
+                                $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
+                                if (cookie.account == value.address) {
+                                    document.getElementById("selectaccount")[key].selected = true;
+                                    console.log("cookie is null");
+                                }
+                                key++;
+                                console.log(key)
+                            });
+                            var batch = $('#selectaccount').val();
+                            $("#account").text($("#selectaccount option:selected").text());
+                            $("#address").text(batch);
+                            layui.form.render("select");
 
-                    $.each(data.data, function (index, value) {
-                        console.log(value);
-                        $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
-                    });
-                    var batch = $('#selectaccount').val();
-                    $("#address").text(batch);
-                    console.log(batch);
-                    // (new Option(value.id, value.address));
-                    layui.form.render("select");//重新渲染 固定写法
+                        }
+                    })
+                    // $.each(data.data, function (index, value) {
+                    //     console.log(value);
+                    //     $('#selectaccount').append(new Option(value.id, value.address));// 下拉菜单里添加元素
+                    // });
+                    // var batch = $('#selectaccount').val();
+                    // $("#address").text(batch);
+                    // console.log(batch);
+                    // // (new Option(value.id, value.address));
+                    // layui.form.render("select");//重新渲染 固定写法
                 }
             })
             $.ajax({
@@ -656,17 +681,38 @@
                 type: 'get',
                 success: function (data) {
                     console.log(data);
-                    //下面会提到这个data是什么值
-                    //使用循环遍历，给下拉列表赋值
-                    $.each(data.data, function (index, value) {
-                        console.log(value);
-                        $('#selectnet').append(new Option(value.id, value.net));// 下拉菜单里添加元素
-                    });
-                    var batch = $('#selectnet').val();
-                    // $("#address").text("当前操作账户为 ：" + batch);
-                    console.log(batch);
-                    // (new Option(value.id, value.address));
-                    layui.form.render("select");//重新渲染 固定写法
+                    $.ajax({
+                        url: cookiepath,
+                        dataType: 'json',
+                        type: 'get',
+                        success: function (cookie) {
+                            console.log(cookie);
+                            var key = 0;
+                            $.each(data.data, function (index, value) {
+                                console.log(key)
+                                $('#selectnet').append(new Option(value.id, value.net));
+                                if (cookie.net == value.net) {
+                                    document.getElementById("selectnet")[key].selected = true;
+                                }
+                                key++;
+                                console.log(key)
+                            });
+                            
+                            layui.form.render("select");
+
+                        }
+                    })
+                    // //下面会提到这个data是什么值
+                    // //使用循环遍历，给下拉列表赋值
+                    // $.each(data.data, function (index, value) {
+                    //     console.log(value);
+                    //     $('#selectnet').append(new Option(value.id, value.net));// 下拉菜单里添加元素
+                    // });
+                    // var batch = $('#selectnet').val();
+                    // // $("#address").text("当前操作账户为 ：" + batch);
+                    // console.log(batch);
+                    // // (new Option(value.id, value.address));
+                    // layui.form.render("select");//重新渲染 固定写法
                 }
             })
             setTimeout(() => { tokenlist(); symbol_this = "ETH" }, 500);

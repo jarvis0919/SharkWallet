@@ -14,6 +14,10 @@ function exportaccount(address, password) {
     console.log(address, password);
     ipcRenderer.send("exportaccount", address, password);
 }
+function Cookierefresh(net, account) {
+    console.log(account + "" +net );
+    ipcRenderer.send("Cookierefresh", net, account);
+}
 ipcRenderer.on("Privatekey", (event, Privatekey) => {
     console.log(Privatekey);
     document.getElementById("getPrivatekeybox").style.display = "block"

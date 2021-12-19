@@ -41,11 +41,7 @@ function editaccount(address, id) {
     console.log(address, id);
     ipcRenderer.send("editaccount", address, id);
 }
-ipcRenderer.on("editaccountstate", (event, state) => {
-    document.getElementById("editaccountstate").innerHTML = state;
 
-
-})
 function connectNet(net, chainid) {
     ipcRenderer.send("connectNet", net, chainid);
 }
@@ -57,9 +53,6 @@ function addToken(tokenaddress, address, net) {
     // var abi = addtoken.abi.value;
     ipcRenderer.send("addToken", tokenaddress, address, net);
 }
-ipcRenderer.on("addtokenstate", (event, state) => {
-    document.getElementById("addtokenstate").innerHTML = state;
-})
 function addNet(id, net, chainid) {
     ipcRenderer.send("addNet", id, net, chainid);
 }
@@ -77,70 +70,76 @@ ipcRenderer.on("net", (event, state) => {
         console.log("添加失败")
     }
 })
-function remove1(id) {
-    fs.readFile('./json/net.json', function (err, data) {
-        if (err) {
-            return console.error(err);
-        }
-        var person = data.toString();//将二进制的数据转换为字符串
-        person = JSON.parse(person);//将字符串转换为json对象
-        var delbool = true;
-        for (k = 0; k < person.data.length; k++) {
-            if (person.data[k].id == id) {
-                console.log(k)
-                person.data.splice(k, 1);
-                delbool = false;
-            }
-        }
-        person.total = person.data.length;//定义一下总条数，为以后的分页打基础
-        var str = JSON.stringify(person);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
-        if (!delbool) {
-            fs.writeFile('./json/net.json', str, function (err) {
-                if (err) {
-                    console.error(err);
-                    console.log("删除失败")
-                }
-                readNet();
-                console.log('删除成功');
-            })
-        } else {
-            readNet();
-            console.log('删除失败');
-        }
-    })
+function removenet(netstate){
+    ipcRenderer.send("removenet", netstate);
 }
-function remove2(id) {
-    fs.readFile('./json/account.json', function (err, data) {
-        if (err) {
-            return console.error(err);
-        }
-        var person = data.toString();//将二进制的数据转换为字符串
-        person = JSON.parse(person);//将字符串转换为json对象
-        var delbool = true;
-        for (k = 0; k < person.data.length; k++) {
-            if (person.data[k].id == id) {
-                console.log(k)
-                person.data.splice(k, 1);
-                delbool = false;
-            }
-        }
-        //定义一下总条数，为以后的分页打基础
-        var str = JSON.stringify(person);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
-        if (!delbool) {
-            fs.writeFile('./json/account.json', str, function (err) {
-                if (err) {
-                    console.error(err);
-                    console.log("删除失败")
-                }
-                readNet();
-                console.log('删除成功');
-            })
-        } else {
-            readNet();
-            console.log('删除失败');
-        }
-    })
+function removeaccount(address){
+    ipcRenderer.send("removeaccount", address);
 }
+// function remove1(id) {
+//     fs.readFile('./json/net.json', function (err, data) {
+//         if (err) {
+//             return console.error(err);
+//         }
+//         var person = data.toString();//将二进制的数据转换为字符串
+//         person = JSON.parse(person);//将字符串转换为json对象
+//         var delbool = true;
+//         for (k = 0; k < person.data.length; k++) {
+//             if (person.data[k].id == id) {
+//                 console.log(k)
+//                 person.data.splice(k, 1);
+//                 delbool = false;
+//             }
+//         }
+//         person.total = person.data.length;//定义一下总条数，为以后的分页打基础
+//         var str = JSON.stringify(person);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
+//         if (!delbool) {
+//             fs.writeFile('./json/net.json', str, function (err) {
+//                 if (err) {
+//                     console.error(err);
+//                     console.log("删除失败")
+//                 }
+//                 readNet();
+//                 console.log('删除成功');
+//             })
+//         } else {
+//             readNet();
+//             console.log('删除失败');
+//         }
+//     })
+// }
+// function remove2(id) {
+//     fs.readFile('./json/account.json', function (err, data) {
+//         if (err) {
+//             return console.error(err);
+//         }
+//         var person = data.toString();//将二进制的数据转换为字符串
+//         person = JSON.parse(person);//将字符串转换为json对象
+//         var delbool = true;
+//         for (k = 0; k < person.data.length; k++) {
+//             if (person.data[k].id == id) {
+//                 console.log(k)
+//                 person.data.splice(k, 1);
+//                 delbool = false;
+//             }
+//         }
+//         //定义一下总条数，为以后的分页打基础
+//         var str = JSON.stringify(person);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
+//         if (!delbool) {
+//             fs.writeFile('./json/account.json', str, function (err) {
+//                 if (err) {
+//                     console.error(err);
+//                     console.log("删除失败")
+//                 }
+//                 readNet();
+//                 console.log('删除成功');
+//             })
+//         } else {
+//             readNet();
+//             console.log('删除失败');
+//         }
+//     })
+// }
 function toRearrange(password,newpassword){
     ipcRenderer.send("toRearrange", password,newpassword);
 }

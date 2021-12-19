@@ -9,7 +9,10 @@ function minimizeindex() {
 function tocloseindex() {
   ipcRenderer.send("tocloseindex");
 }
-
+function Cookierefresh(net, account) {
+  console.log(account + "" +net );
+  ipcRenderer.send("Cookierefresh", net, account);
+}
 function selecttoken1(symbol) {
   // console.log("good"+symbol)
   if (!sendok) {
