@@ -52,7 +52,7 @@ const createWindow = (Start_address, height, width) => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+   mainWindow.webContents.openDevTools();
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
   if (Start_address == "../html/assets.html") {
