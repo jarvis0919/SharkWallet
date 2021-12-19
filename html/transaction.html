@@ -917,7 +917,15 @@
                 // if ($('#nowtokenaddress').html() == "ETH") {
                 //     sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), $('#sendingETH').val(), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
                 // }
-                sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), Number($('#sendingETH').html()) * Math.pow(10, Number($("#nowtokenaccuracy").html())), $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
+                var sendvalue;
+                console.log(Number($("#nowtokenaccuracy").html()));
+                if($('#nowtoken').html() =="ETH"){
+                     sendvalue  = Number($('#sendingETH').html());
+                }else{
+                    sendvalue =  Number($('#sendingETH').html()) * Math.pow(10, Number($("#nowtokenaccuracy").html()))
+                }
+                console.log(sendvalue);
+                sendbalance($('#selectnet').val(), $('#selectaccount').val(), $('#to').html(), sendvalue, $('#sendGaslimit').val(), $('#Maxfee').val(), $('#nowtokenaddress').html());
             });
             ipcRenderer.on("transaction", (event, state, transaction) => {
                 console.log(transaction);

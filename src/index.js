@@ -52,7 +52,7 @@ const createWindow = (Start_address, height, width) => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
   if (Start_address == "../html/assets.html") {
@@ -276,20 +276,20 @@ app.on('ready', () => {
           return false;
         }
       });
-      fs.readFile(transactionpath, (err, data) => {
-        if (err) {
-          var person1 = { code: 0, total: 0, data: [] }
-          var str = JSON.stringify(person1);
-          fs.writeFile(transactionpath, str, err => {
-            if (err) {
-              console.log(err)
-              return false
-            }
-          })
-          console.log(err);
-          return false;
-        }
-      })
+      // fs.readFile(transactionpath, (err, data) => {
+      //   if (err) {
+      //     var person1 = { code: 0, total: 0, data: [] }
+      //     var str = JSON.stringify(person1);
+      //     fs.writeFile(transactionpath, str, err => {
+      //       if (err) {
+      //         console.log(err)
+      //         return false
+      //       }
+      //     })
+      //     console.log(err);
+      //     return false;
+      //   }
+      // })
       fs.readFile(transactionpath, (err, data) => {
         if (err) {
           var person1 = { code: 0, total: 0, data: [] }
@@ -503,17 +503,20 @@ const getbalanceass = async (net, address, k) => {
 const trackTransaction = async (hash, id) => {
   var i = 0;
   var ref = setInterval(function () {
-    web3.eth.getTransaction(hash, function (err, obj) {
+    fs.readFile(transactionpath, function (err, data) {
       if (err) {
         return console.error(err);
       }
-      if (obj.transactionIndex != null) {
-        fs.readFile(transactionpath, function (err, data) {
-          if (err) {
-            return console.error(err);
-          }
-          var person = data.toString();//将二进制的数据转换为字符串
-          person = JSON.parse(person);
+      var person = data.toString();//将二进制的数据转换为字符串
+      person = JSON.parse(person);
+      console.log(id)
+      var net = person.data[id - 1].net;
+      var web3 = new Web3(new Web3.providers.HttpProvider(net))
+      web3.eth.getTransaction(hash, function (err, obj) {
+        if (err) {
+          return console.error(err);
+        }
+        if (obj.transactionIndex != null) {
           person.data[id - 1].transactionIndex = obj.transactionIndex;
           person.data[id - 1].transactionstoptime = Math.round(new Date() / 1000);
           var str = JSON.stringify(person);
@@ -525,15 +528,18 @@ const trackTransaction = async (hash, id) => {
             console.log('交易已被确认');
             clearInterval(ref);
           })
-        })
-      } else {
-        i = i + 1;
-        if (i > 10) {
-          BrowserWindow.fromId(2).webContents.send("trackTransaction", 1, id);
+
+        } else {
+          i = i + 1;
+          if (i > 10) {
+            BrowserWindow.fromId(2).webContents.send("trackTransaction", 1, id);
+          }
         }
-      }
+      })
     })
   }, 5000);
+
+
 }
 const getTransaction = async (hash, net) => {
   web3 = new Web3(new Web3.providers.HttpProvider(net))
@@ -860,6 +866,19 @@ ipcMain.on('togo', (event, url) => {
   } else {
     BrowserWindow.fromId(1).close();
     createWindow('../html/assets.html', 600, 900);
+    fs.readFile(transactionpath, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        var person = data.toString();
+        person = JSON.parse(person);
+        for (a = 0; a < person.data.length; a++) {
+          if (person.data[a].transactionIndex == null) {
+            trackTransaction(person.data[a].hash, person.data[a].id)
+          }
+        }
+      }
+    })
     // handleUpdate();
   }
 })
@@ -1072,7 +1091,7 @@ ipcMain.on('getGasPrice', (event, net) => {
 ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, Maxfee, token) => {
   event.reply('sendbalance', "转账")
 
-  web3 = new Web3(new Web3.providers.HttpProvider(net))
+  var web3 = new Web3(new Web3.providers.HttpProvider(net))
   var sendvalue;
   var date1 = '';
   var toaddress;
@@ -1083,7 +1102,6 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
     console.log("transferAmount===>" + transferAmount);
     console.log("hextransferAmount===>" + web3.utils.toHex(transferAmount));
     toaddress = address1;
-
   } else {
     toaddress = token;
     date1 = '0x' + 'a9059cbb' + addPreZero(address1.substr(2)) + addPreZero(web3.utils.toHex(value1).substr(2));
@@ -1096,6 +1114,7 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
   console.log("to======>" + address1);
   console.log("value===>" + value1);
   console.log("token===>" + token);
+  console.log("Maxfee=====>" + Maxfee)
   console.log("sendGaslimit=====>" + sendGaslimit)
   // console.log("gaspricevalue===>" + sb);
   web3.eth.getTransactionCount(address, web3.eth.defaultBlock.pending).then(function (nonce) {
