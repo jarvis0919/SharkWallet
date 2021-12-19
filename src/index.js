@@ -1350,6 +1350,7 @@ ipcMain.on('toRearrange', (event, password, newpassword) => {
           console.log(err)
           return false
         }
+        pass1(newpassword);
         fs.readFile(accountpath, (err, account) => {
           if (err) {
             console.log(err);
@@ -1403,6 +1404,7 @@ ipcMain.on('toRearrange', (event, password, newpassword) => {
                         return false;
                       } else {
                         createaccounts(data.toString(), 1);
+                        event.sender.send("msg","重置成功，5秒后重启");
                         setTimeout(() => {
                           app.relaunch();
                           app.quit();
@@ -1418,7 +1420,7 @@ ipcMain.on('toRearrange', (event, password, newpassword) => {
       })
     })
   } else {
-    event.sender.send("toRearrangeerr")
+    event.sender.send("toRearrangeerr");
   }
 })
 ipcMain.on('toinitialization', (event, password) => {
@@ -1496,6 +1498,7 @@ ipcMain.on('toinitialization', (event, password) => {
                     console.log(err);
                     return false;
                   } else {
+                    event.sender.send("msg","软件重置成功，5秒后重启");
                     setTimeout(() => {
                       app.relaunch();
                       app.quit();

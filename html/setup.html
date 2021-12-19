@@ -549,6 +549,10 @@
                 tableIns.reload();
                 tableIn2.reload();
             })
+            ipcRenderer.on("msg", (event, msg) => {
+                console.log("======")
+                layer.msg(msg);
+            })
             var active = {
                 display1: function () {
                     var container = document.getElementById('container');
