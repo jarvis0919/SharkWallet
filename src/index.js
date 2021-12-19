@@ -52,7 +52,7 @@ const createWindow = (Start_address, height, width) => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, Start_address));
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
   if (Start_address == "../html/assets.html") {
@@ -1326,8 +1326,9 @@ ipcMain.on('delfile', (event) => {
 })
 ipcMain.on('toRearrange', (event, password, newpassword) => {
   event.reply('toRearrange', "toRearrange")
-  if ((password.length / 2) < 17) {
-    for (var i = 0; i < (17 - (password.length / 2)); i++) {
+  if (password.length < 17) {
+    var leng = password.length;
+    for (var i = 0; (i + leng) < 16; i++) {
       password += "0";
     }
   }
@@ -1422,8 +1423,9 @@ ipcMain.on('toRearrange', (event, password, newpassword) => {
 })
 ipcMain.on('toinitialization', (event, password) => {
   event.reply('toinitialization', "toinitialization")
-  if ((password.length / 2) < 17) {
-    for (var i = 0; i < (17 - (password.length / 2)); i++) {
+  if (password.length < 17) {
+    var leng = password.length;
+    for (var i = 0; (i + leng) < 16; i++) {
       password += "0";
     }
   }
@@ -1512,8 +1514,9 @@ ipcMain.on('toinitialization', (event, password) => {
 })
 ipcMain.on('tomnemonics', (event, password) => {
   event.reply('tomnemonics', "tomnemonics")
-  if ((password.length / 2) < 17) {
-    for (var i = 0; i < (17 - (password.length / 2)); i++) {
+  if (password.length < 17) {
+    var leng = password.length;
+    for (var i = 0; (i + leng) < 16; i++) {
       password += "0";
     }
   }
