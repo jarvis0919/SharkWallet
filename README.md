@@ -1,6 +1,6 @@
 # Blockchain-SharkWallet
 # 鲨鱼！钱包
-![enter image description here](https://github.com/jarvis0919/SharkWallet/blob/main/img/logo1.png?raw=true)
+<!-- ![enter image description here](https://github.com/jarvis0919/SharkWallet/blob/main/img/logo1.png?raw=true) -->
 <img src="https://github.com/jarvis0919/SharkWallet/blob/main/img/logo1.png" width="200" />
 # SharkWallet 我想回家玩滑板🛹
 遵守bip39协议的区块链钱包#
