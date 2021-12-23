@@ -30,11 +30,17 @@
 
 ## 怎么去搭建开发
 第一步
+
 安装node.js.
+
 第二步
+
 `git clone https://github.com/jarvis0919/SharkWallet.git` 
+
 第三步
+
 `npm install`
+
 下载项目所需的模块.
 ##### 开发环境的配置
 
