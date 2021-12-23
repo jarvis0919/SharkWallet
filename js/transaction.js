@@ -116,12 +116,9 @@ function opentransaction(id, state) {
   console.log(id);
   ipcRenderer.send("opentransaction", id, state);
 }
-
 ipcRenderer.on("trackTransaction", (event, state) => {
   console.log(state);
 })
-
 function getLocalTime(nS) {
   return new Date(parseInt(nS) * 1000).toLocaleString();
 }
-

@@ -2,6 +2,7 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
 const { contextIsolated, Start_addressill } = require('process');
 const fs = require('fs');
+const fs2 = require("fs-extra");
 const Web3 = require('web3');
 const readline = require('readline');
 const bip39 = require('bip39');
@@ -24,6 +25,7 @@ const accountpath = userhome(USE_HOME, 'account.json');
 const netpath = userhome(USE_HOME, 'net.json');
 const tokenlistpath = userhome(USE_HOME, 'tokenlist.json');
 const transactionpath = userhome(USE_HOME, 'transaction.json');
+
 const cookiepath = userhome(USE_HOME, 'cookie.json');
 const erc20abi = path.join(__dirname, '../html/readjson/erc20abi.json');
 
@@ -49,10 +51,9 @@ const createWindow = (Start_address, height, width) => {
       contextIsolation: false,
     }
   });
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, Start_address));
-  // Open the DevTools.
-  //mainWindow.webContents.openDevTools();
+
+    mainWindow.loadFile(path.join(__dirname, Start_address));
+
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
   if (Start_address == "../html/assets.html") {
@@ -276,20 +277,6 @@ app.on('ready', () => {
           return false;
         }
       });
-      // fs.readFile(transactionpath, (err, data) => {
-      //   if (err) {
-      //     var person1 = { code: 0, total: 0, data: [] }
-      //     var str = JSON.stringify(person1);
-      //     fs.writeFile(transactionpath, str, err => {
-      //       if (err) {
-      //         console.log(err)
-      //         return false
-      //       }
-      //     })
-      //     console.log(err);
-      //     return false;
-      //   }
-      // })
       fs.readFile(transactionpath, (err, data) => {
         if (err) {
           var person1 = { code: 0, total: 0, data: [] }
@@ -392,8 +379,6 @@ function startup() {
       Start_address = '../html/register.html'
       createWindow(Start_address, height, width);
     }
-
-
   })
 }
 function addPreZero(num) {
@@ -880,7 +865,6 @@ ipcMain.on('togo', (event, url) => {
         }
       }
     })
-    // handleUpdate();
   }
 })
 ipcMain.on('login', (event, arg) => {
@@ -1404,7 +1388,7 @@ ipcMain.on('toRearrange', (event, password, newpassword) => {
                         return false;
                       } else {
                         createaccounts(data.toString(), 1);
-                        event.sender.send("msg","重置成功，5秒后重启");
+                        event.sender.send("msg", "重置成功，5秒后重启");
                         setTimeout(() => {
                           app.relaunch();
                           app.quit();
@@ -1498,7 +1482,7 @@ ipcMain.on('toinitialization', (event, password) => {
                     console.log(err);
                     return false;
                   } else {
-                    event.sender.send("msg","软件重置成功，5秒后重启");
+                    event.sender.send("msg", "软件重置成功，5秒后重启");
                     setTimeout(() => {
                       app.relaunch();
                       app.quit();
