@@ -17,7 +17,7 @@
 这个项目使用[web3.js](https://github.com/facebook/create-react-app), 
 并使用electron-builder [electron-builder](https://mobile.ant.design/)构建打包。
 
-### Available Scripts
+### 可用脚本
 
 在项目目录中，您可以运行：
 
