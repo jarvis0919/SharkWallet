@@ -1,75 +1,52 @@
 # Blockchain-SharkWallet
 # 鲨鱼！钱包
-# 👛keypering (work-in-progress👷🔧️👷‍♀️⛏)
+# 👛鲨鱼钱包🦈 
 
-**Keypering** ia a [nervos CKB](https://www.nervos.org/) desktop wallet prototype for dApp interaction.
+**鲨鱼钱包** 是一个使用 [electron框架](https://www.nervos.org/) 搭建的与以太坊交互的区块链桌面钱包.
 
 ## Status
 
-**This project is still in its early stages of development**
+**现已发布正式版！！**
 
-## Development Setup
+## 开发设置
 
-### Prerequisites
+### 先决条件
 
-First you need to install [nodejs](https://nodejs.org/) and [yarn](https://yarnpkg.com/).
+首先你需要安装 [nodejs](https://nodejs.org/).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), 
-and built with [Ant Design Mobile](https://mobile.ant.design/), 
-[Source Code Pro](https://github.com/adobe-fonts/source-code-pro), 
-[Google Lato Font](https://fonts.google.com/specimen/Lato), 
-[Feature Icon](https://github.com/feathericons/feather).
-
-It also uses [Tauri](https://github.com/tauri-apps/tauri) to build a desktop GUI.
-check [Tauri docs](https://tauri.studio/docs/getting-started/intro) to setup development environment.
+这个项目使用[web3.js](https://github.com/facebook/create-react-app), 
+并使用electron-builder [electron-builder](https://mobile.ant.design/)构建打包。
 
 ### Available Scripts
 
-In the project directory, you can run:
+在项目目录中，您可以运行：
 
-#### `yarn start`
+#### `npm start`
+启动electron 。
 
-Start a http server, which is listening on :3000, for development.
+### `npm run deploy`
 
-The page will reload if you make edits.
-
-You will also see any lint errors in the console.
-
-### `yarn tauri dev`
-
-Compile and open the desktop app, which loads `http://127.0.0.1:3000/` as homepage.
-
-The app will recompile if you make edits on rust code. 
+使用electron-builder 进行项目打包。 
 
 ## How to build production
-First, Setup the tauri
+第一步
+安装node.js
+第二步
+`git clone https://github.com/jarvis0919/SharkWallet.git` 
+第三步使
+`npm install`
+下载项目所需的模块。
+##### 开发环境的配置
 
-for windows:
-
-https://tauri.studio/docs/getting-started/setup-windows
-
-for mac:
-
-https://tauri.studio/docs/getting-started/setup-macos
-
-And, run the following commands to build a standalone executable file:
-
-```shell
-yarn install
-yarn build
-yarn tauri build
-```
-
-Check `src-tauri/target/release/keypering.exe`
-
-## License
-
-Keypering is released under the terms of the MIT license. See [COPYING](https://github.com/liusong1111/keypering-ui/blob/develop/COPYING) for more information or see https://opensource.org/licenses/MIT.
-<img src="https://github.com/jarvis0919/SharkWallet/blob/main/img/logo1.png" width="200" />
+| 类别       | 标准配置                                                     |
+| ---------- | ------------------------------------------------------------ |
+| 计算机硬件 | Cpu:Intel(R)  Core(TM) i7-10750H CPU @ 2.20GHz  2.21  GHz,显卡:NVIDIA GeForce RTX 2060 |
+| 软件       | node v14.18.0 ;  |
+| 其它       |安装web3js，搭建本地链和可安装Metamask的浏览器。 |
 # SharkWallet 我想回家玩滑板🛹
 遵守bip39协议的区块链钱包#
 
-##### 开发环境的配置
+##### 软件介绍
 
 ![QQ截图20211221211106](https://user-images.githubusercontent.com/55125330/146937093-84e46341-156e-47bb-b21b-6e09b8600790.png)
 ![QQ截图20211221211133](https://user-images.githubusercontent.com/55125330/146937109-ec0386ae-cfbd-47e7-84d7-5f11982d2552.png)
@@ -88,23 +65,7 @@ Keypering is released under the terms of the MIT license. See [COPYING](https://
 
 
 
-##### 开发环境的配置
 
-| 类别       | 标准配置                                                     |
-| ---------- | ------------------------------------------------------------ |
-| 计算机硬件 | Cpu:Intel(R)  Core(TM) i7-10750H CPU @ 2.20GHz  2.21  GHz,显卡:NVIDIA GeForce RTX 2060 |
-| 软件       | Geth 1.9.25 ; Web3js ; Google Chrome ; Remix ;   Microsoft Visual Studio Code ; Metamask ; Cmd ;  |
-| 其它       |安装web3js，搭建本地链和可安装Metamask的浏览器。 |
-
-
-##### 运行环境的配置
-
-
-| 类别       | 标准配置                                                     |
-| ---------- | ------------------------------------------------------------ |
-| 计算机硬件 | Cpu:Intel(R)  Core(TM) i7-10750H CPU @ 2.20GHz  2.21  GHz,显卡:NVIDIA GeForce RTX 2060  |
-| 软件       | Google Chrome ; Metamask ; Web3js                            |
-| 其它       | 安装web3js，搭建本地链和可安装Metamask的浏览器。  |
 
 ### 转载
 
