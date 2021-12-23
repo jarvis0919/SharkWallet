@@ -5,6 +5,8 @@
 # SharkWallet 我想回家玩滑板🛹
 遵守bip39协议的区块链钱包#
 
+##### 开发环境的配置
+
 ![QQ截图20211221211106](https://user-images.githubusercontent.com/55125330/146937093-84e46341-156e-47bb-b21b-6e09b8600790.png)
 ![QQ截图20211221211133](https://user-images.githubusercontent.com/55125330/146937109-ec0386ae-cfbd-47e7-84d7-5f11982d2552.png)
 ![QQ截图20211221211140](https://user-images.githubusercontent.com/55125330/146937116-ff5ac08b-661b-4e59-91d1-be8fadba72bc.png)
