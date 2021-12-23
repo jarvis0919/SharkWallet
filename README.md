@@ -2,7 +2,7 @@
 # 鲨鱼！钱包
 # 👛鲨鱼钱包🦈 
 
-**鲨鱼钱包** 是一个使用 [electron框架](https://www.nervos.org/) 搭建的与以太坊交互的区块链桌面钱包.
+**鲨鱼钱包** 是一个使用 [electron框架](https://www.electronjs.org/) 搭建的与以太坊交互的区块链桌面钱包.
 
 ## 状态
 
@@ -14,8 +14,8 @@
 
 首先你需要安装 [nodejs](https://nodejs.org/).
 
-这个项目使用[web3.js](https://github.com/facebook/create-react-app), 
-并使用electron-builder [electron-builder](https://mobile.ant.design/)构建打包。
+这个项目使用[web3.js](https://github.com/ChainSafe/web3.js), 
+并使用electron-builder [electron-builder](https://www.electron.build/)构建打包。
 
 ### 可用脚本
 
@@ -29,11 +29,11 @@
 使用electron-builder 进行项目打包。 
 
 ## 怎么去搭建开发
-第一步
+###第一步
 安装node.js
-第二步
+###第二步
 `git clone https://github.com/jarvis0919/SharkWallet.git` 
-第三步使
+###第三步
 `npm install`
 下载项目所需的模块。
 ##### 开发环境的配置
