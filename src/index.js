@@ -52,7 +52,7 @@ const createWindow = (Start_address, height, width) => {
     }
   });
 
-    mainWindow.loadFile(path.join(__dirname, Start_address));
+  mainWindow.loadFile(path.join(__dirname, Start_address));
 
   // handleUpdate();
   // 通过main进程发送事件给renderer进程，提示更新信息
@@ -755,50 +755,54 @@ const addToken = async (tokenaddress, address, net) => {
         web3 = new Web3(new Web3.providers.HttpProvider(net))
         console.log("=======>" + tokenaddress)
         console.log(contractAbi)
-
-        var contract = new web3.eth.Contract(contractAbi, tokenaddress.toString());
-        contract.methods.name().call(function (error, name) {
-          if (error) {
-            console.error(error);
-            BrowserWindow.fromId(2).webContents.send("addtokenstate", "无法找到该代币", null);
-          }
-          contract.methods.symbol().call(function (error, symbol) {
+        try {
+          var contract = new web3.eth.Contract(contractAbi, tokenaddress.toString());
+          contract.methods.name().call(function (error, name) {
             if (error) {
               console.error(error);
+              BrowserWindow.fromId(2).webContents.send("addtokenstate", "无法找到该代币", null);
             }
-            contract.methods.decimals().call(function (error, decimals) {
+            contract.methods.symbol().call(function (error, symbol) {
               if (error) {
                 console.error(error);
-              } else {
-                var token = {
-                  symbol: name,
-                  address: tokenaddress,
-                  net: net,
-                  Company: symbol,
-                  decimals: decimals
-                };
-                person[address].push(token);
-                person.total = person.total + 1;
-                var str = JSON.stringify(person);
-                fs.writeFile(tokenlistpath, str, function (err) {
-                  if (err) {
-                    console.error(err);
-                  }
-                  BrowserWindow.fromId(2).webContents.send("addtokenstate", "添加成功", name);
-                })
-
               }
+              contract.methods.decimals().call(function (error, decimals) {
+                if (error) {
+                  console.error(error);
+                } else {
+                  var token = {
+                    symbol: name,
+                    address: tokenaddress,
+                    net: net,
+                    Company: symbol,
+                    decimals: decimals
+                  };
+                  person[address].push(token);
+                  person.total = person.total + 1;
+                  var str = JSON.stringify(person);
+                  fs.writeFile(tokenlistpath, str, function (err) {
+                    if (err) {
+                      console.error(err);
+                    }
+                    BrowserWindow.fromId(2).webContents.send("addtokenstate", "添加成功", name);
+                  })
+  
+                }
+              })
             })
           })
-        })
+        } catch (error) {
+          BrowserWindow.fromId(2).webContents.send("addtokenstate", "添加失败检查代币地址及网络");
+        }
       })
     }
   })
 }
 ipcMain.on('Cookierefresh', (event, net, account) => {
-  event.reply('Cookierefresh', "注册");
+  event.reply('Cookierefresh', "缓存");
   fs.readFile(cookiepath, (err, data) => {
     if (err) {
+      event.sender.send("Cookiestate", false);
       console.log(err);
     }
     var person1 = {
@@ -808,8 +812,10 @@ ipcMain.on('Cookierefresh', (event, net, account) => {
     var str = JSON.stringify(person1);
     fs.writeFile(cookiepath, str, err => {
       if (err) {
+        event.sender.send("Cookiestate", false);
         console.log(err)
       }
+      event.sender.send("Cookiestate", true);
     })
   })
 })
@@ -837,10 +843,8 @@ ipcMain.on('getMnemonic', (event, arg) => {
     console.log('写入成功');
     pass1(arg);
     console.log(hash);
-
     event.sender.send("Mnemonic", mnemonic);
   })
-
 })
 ipcMain.on('togo', (event, url) => {
   var no = '../html/login.html';
@@ -897,16 +901,12 @@ ipcMain.on('login', (event, arg) => {
 })
 ipcMain.on('createaccount', (event, nub) => {
   event.reply('createaccount', "创建账户")
-  console.log("接收到了傻逼")
   fs.readFile(eptionmcpath, (err, data) => {
     if (err) {
       console.log(err);
       return false;
     } else {
-      console.log("草泥马的比")
       createaccounts(data.toString(), nub);
-      //event.sender.send("fuck", data.toString());
-      // event.sender.send("fuck", eptionmc)
     }
   })
 })
@@ -971,7 +971,7 @@ ipcMain.on('editaccount', (event, address, id) => {
   event.reply('editaccount', "delfile")
   fs.readFile(accountpath, function (err, data) {
     if (err) {
-      // event.sender.send("import", "读取失败");
+      event.sender.send("editaccountstate", "读取失败");
       return console.error(err);
     }
     var person = data.toString();
@@ -1039,8 +1039,6 @@ ipcMain.on('removenet', (event, netstate) => {
 })
 ipcMain.on('getbalance', (event, net, address, netid) => {
   event.reply('getblance', "获取余额")
-  // console.log(net);
-  //console.log(address);
   fs.readFile(tokenlistpath, function (err, data) {
     if (err) {
       return console.error(err);
@@ -1068,15 +1066,11 @@ ipcMain.on('getGasPrice', (event, net) => {
     var Low = i + 0.01;
     var Medium = (i + 0.11).toFixed(2);
     var High = Math.ceil(web3.utils.fromWei(gasPrice1, 'Gwei')) + 0.01;
-    // console.log("最低" + web3.utils.fromWei(gasPrice1, 'Gwei'))
-    // console.log("中等" + (i + 0.1).toFixed(1))
-    // console.log("最高" + Math.ceil(web3.utils.fromWei(gasPrice1, 'Gwei')))
     event.sender.send("GasPrice", Low, Medium, High);
   })
 })
 ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, Maxfee, token) => {
   event.reply('sendbalance', "转账")
-
   var web3 = new Web3(new Web3.providers.HttpProvider(net))
   var sendvalue;
   var date1 = '';
@@ -1093,16 +1087,6 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
     date1 = '0x' + 'a9059cbb' + addPreZero(address1.substr(2)) + addPreZero(web3.utils.toHex(value1).substr(2));
     transferAmount = '0x00';
   }
-
-  // var gaspricevalue = web3.utils.fromWei(sb, 'ether');
-  console.log(net);
-  console.log("from====>" + address);
-  console.log("to======>" + address1);
-  console.log("value===>" + value1);
-  console.log("token===>" + token);
-  console.log("Maxfee=====>" + Maxfee)
-  console.log("sendGaslimit=====>" + sendGaslimit)
-  // console.log("gaspricevalue===>" + sb);
   web3.eth.getTransactionCount(address, web3.eth.defaultBlock.pending).then(function (nonce) {
     fs.readFile(netpath, function (err, data) {
       if (err) {
@@ -1129,7 +1113,6 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
 
             data: date1
           }
-          //console.log(web3.utils.toHex(10e17));
           var tx = new Tx(txData);
           fs.readFile(accountpath, function (err, data1) {
             if (err) {
@@ -1142,11 +1125,9 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
               if (person1.data[k].address == address) {
                 console.log(k)
                 let o = decrypt(person1.data[k].Encryptedprivate);
-
                 const privateKey = new Buffer.from(o.toString(), 'hex');
                 tx.sign(privateKey);
                 var serializedTx = tx.serialize().toString('hex');
-                console.log("私钥=============》" + o.toString());
                 web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, hash) {
                   if (!err) {
                     console.log(hash);
@@ -1156,9 +1137,7 @@ ipcMain.on('sendbalance', (event, net, address, address1, value1, sendGaslimit, 
                     if (err.toString() == "Error: Returned error: already known") {
                       console.log("错误已捕捉");
                     } else {
-                      console.error(err);
                       event.sender.send("transaction", 1, err);
-
                     }
 
                   }
@@ -1182,14 +1161,11 @@ ipcMain.on('opentransaction', (event, id, state) => {
     var str = person.data[id - 1]
     console.log(person.data[id - 1]);
     event.sender.send("transactionopen", str, state);
-
   })
 })
-
 ipcMain.on('addToken', (event, tokenaddress, address, net) => {
   event.reply('addToken', "添加代币")
   addToken(tokenaddress, address, net);
-  //event.sender.send("token", "ok");
 })
 
 ipcMain.on('addNet', (event, id, net, chainid) => {
@@ -1217,9 +1193,9 @@ ipcMain.on('addNet', (event, id, net, chainid) => {
             }
           }
           if (json1) {
-            person.data.push(web);//将传来的对象push进数组对象中
-            person.total = person.data.length;//定义一下总条数，为以后的分页打基础
-            var str = JSON.stringify(person);//因为nodejs的写入文件只认识字符串或者二进制数，所以把json对象转换成字符串重新写入json文件中
+            person.data.push(web);
+            person.total = person.data.length;
+            var str = JSON.stringify(person);
             fs.writeFile(netpath, str, function (err) {
               if (err) {
                 console.error(err);
