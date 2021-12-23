@@ -4,7 +4,7 @@
 
 **鲨鱼钱包** 是一个使用 [electron框架](https://www.nervos.org/) 搭建的与以太坊交互的区块链桌面钱包.
 
-## Status
+## 状态
 
 **现已发布正式版！！**
 
@@ -24,11 +24,11 @@
 #### `npm start`
 启动electron 。
 
-### `npm run deploy`
+#### `npm run deploy`
 
 使用electron-builder 进行项目打包。 
 
-## How to build production
+## 怎么去搭建开发
 第一步
 安装node.js
 第二步
