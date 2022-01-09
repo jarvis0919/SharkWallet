@@ -727,6 +727,7 @@
                         $('#id').val(null);
                         $('#net').val(null);
                         $('#chainid').val(null);
+                        document.getElementById("addnetstate").innerHTML = "";
                     }
                 });
             });
@@ -783,6 +784,7 @@
                         console.log(document.querySelector("#file").files)
                         $('.Privatekeyimport').css('display', 'none');
                         $('.keystoreimport').css('display', 'none');
+                        document.getElementById("importstate").innerHTML = ""
                     }
                 });
                 if ($('.selectaccountimport').val() == 0) {
@@ -873,6 +875,7 @@
                     , resize: false
                     , cancel: function (index, layero) {
                         $('#addtokenaddress').val(null);
+                        document.getElementById("addtokenstate").innerHTML = "";
                     }
                 });
             })

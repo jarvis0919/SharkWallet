@@ -771,7 +771,7 @@ const addToken = async (tokenaddress, address, net) => {
                   console.error(error);
                 } else {
                   var token = {
-                    symbol: name,
+                    symbol: name.replace(/\s/g,'_'),
                     address: tokenaddress,
                     net: net,
                     Company: symbol,
