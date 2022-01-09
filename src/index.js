@@ -54,8 +54,12 @@ const createWindow = (Start_address, height, width) => {
 
   mainWindow.loadFile(path.join(__dirname, Start_address));
 
-  // handleUpdate();
-  // 通过main进程发送事件给renderer进程，提示更新信息
+
+  
+  //如要开启开发者工具请解除以下代码注释
+  // mainWindow.webContents.openDevTools({ mode: 'detach' })
+
+
   if (Start_address == "../html/assets.html") {
     setTimeout(() => {
       mainWindow.webContents.send('urlupdate');
@@ -771,7 +775,7 @@ const addToken = async (tokenaddress, address, net) => {
                   console.error(error);
                 } else {
                   var token = {
-                    symbol: name.replace(/\s/g,'_'),
+                    symbol: name.replace(/\s/g, '_'),
                     address: tokenaddress,
                     net: net,
                     Company: symbol,
@@ -786,7 +790,7 @@ const addToken = async (tokenaddress, address, net) => {
                     }
                     BrowserWindow.fromId(2).webContents.send("addtokenstate", "添加成功", name);
                   })
-  
+
                 }
               })
             })
